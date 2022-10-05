@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       const {id, username, email} = this;
       return {id, username, email};
     }
-    validatePassword(){
+    validatePassword(password){
       return bcrypt.compareSync(password, this.hashedPassword.toString());
     }
     /**
