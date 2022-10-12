@@ -59,11 +59,11 @@ router.post('/', validateLogin, async (req, res, next) => {
 //   }
 // );
 
-// router.delete('/',(_req, res) => {
-//     res.clearCookie('token');
-//     return res.json({ message: 'success' });
-//   }
-// );
+router.delete('/',(_req, res) => {
+    res.clearCookie('token');
+    return res.json({ message: 'success' });
+  }
+);
 
 // router.get('/',restoreUser,(req, res) => {
 //     const { user } = req;
