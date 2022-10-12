@@ -8,6 +8,8 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
+
+
 // router.post('/', async (req, res, next) => {
 //     const { credential, password } = req.body;
 //     const user = await User.login({ credential, password });
