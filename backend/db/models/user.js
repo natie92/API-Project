@@ -1,7 +1,7 @@
 'use strict';
 const bcrypt = require('bcryptjs');
 
-const { Model } = require('sequelize');
+const { Model, Validator} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
      toSafeObject(){
@@ -35,9 +35,11 @@ module.exports = (sequelize, DataTypes) => {
 
     }
 
-    static async signup({ username, email, password }) {
+    static async signup({ firstName, lastName, username, email, password }) {
       const hashedPassword = bcrypt.hashSync(password);
       const user = await User.create({
+        firstName,
+        lastName,
         username,
         email,
         hashedPassword
@@ -48,11 +50,17 @@ module.exports = (sequelize, DataTypes) => {
   User.init({
     firstName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: [1,50]
+      }
     },
     lastName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: [1,50]
+      }
     },
     username: {
       type: DataTypes.STRING,
@@ -60,7 +68,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len: [4,30],
         isNotEmail(value){
-          if( Validator.isEmail(value)){
+          if(Validator.isEmail(value)){
             throw new Error("Cannot be an email.");
           }
         }
