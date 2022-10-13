@@ -51,7 +51,7 @@ router.get('/', async (req, res, next) => {
     let spots = [];
 
     airbnbspots.forEach((location) => {
-        spots.push(location.JSON())
+        spots.push(location)
     })
 
     console.log(spots)
