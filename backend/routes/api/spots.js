@@ -2,7 +2,6 @@ const express = require("express");
 
 const { restoreUser, requireAuth } = require("../../utils/auth");
 const { Spot, User} = require("../../db/models");
-// const sequelize = require("sequelize");
 
 // const { check, query } = require("express-validator");
 // const { handleValidationErrors } = require("../../utils/validation");
@@ -49,11 +48,13 @@ const router = express.Router();
 router.get('/', async (req, res, next) => {
     let airbnbspots = await Spot.findAll()
 
-    let spots = []
+    let spots = [];
 
     airbnbspots.forEach((location) => {
         spots.push(location.JSON())
     })
+
+    console.log(spots)
 
     res.json(spots)
 });
