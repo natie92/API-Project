@@ -60,4 +60,23 @@ router.get('/', async (req, res, next) => {
 });
 
 
+router.get('/current', requireAuth, async (req, res) => {
+    const { user } = req;
+
+    const userSpots = await Spot.findAll({
+        where: {
+            ownerId: user.id
+        }
+    })
+
+    let airbnbspots = [];
+
+    userSpots.forEach((location)=> {
+        airbnbspots.push(location)
+    })
+
+    return res.json(airbnbspots)
+});
+
+
 module.exports = router;
