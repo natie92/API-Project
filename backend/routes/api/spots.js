@@ -156,11 +156,11 @@ router.post('/', requireAuth, async (req, res, next) => {
         !isValidSpot.price
       ) {
         res.status(400).json({
-        message: `Entry is required`,
+        message: ` ${newSpot.address } is required`,
         statusCode: 400,
         })
       }
-    
+
     res.json(newSpot)
 
 });
