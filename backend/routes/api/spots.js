@@ -130,6 +130,37 @@ router.post('/', requireAuth, async (req, res, next) => {
         description,
         price
     })
+
+    const isValidSpot = await Spot.findAll({
+        where: {
+            address: newSpot.address,
+            city: newSpot.city,
+            state: newSpot.state,
+            country: newSpot.country,
+            lat: newSpot.lat,
+            lng: newSpot.lng,
+            name: newSpot.name,
+            description: newSpot.description,
+            price: newSpot.price,
+        }
+    })
+
+    if( !isValidSpot.address &&
+        !isValidSpot.city &&
+        !isValidSpot.state &&
+        !isValidSpot.country &&
+        !isValidSpot.lat &&
+        !isValidSpot.lng &&
+        !isValidSpot.name &&
+        !isValidSpot.description &&
+        !isValidSpot.price
+      ) {
+        res.status(400).json({
+        message: `Entry is required`,
+        statusCode: 400,
+        })
+      }
+    
     res.json(newSpot)
 
 });
