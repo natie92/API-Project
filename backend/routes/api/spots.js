@@ -145,22 +145,6 @@ router.post('/', requireAuth, async (req, res, next) => {
         }
     })
 
-    if( !isValidSpot.address &&
-        !isValidSpot.city &&
-        !isValidSpot.state &&
-        !isValidSpot.country &&
-        !isValidSpot.lat &&
-        !isValidSpot.lng &&
-        !isValidSpot.name &&
-        !isValidSpot.description &&
-        !isValidSpot.price
-      ) {
-        res.status(400).json({
-        message: `Entry is required`,
-        statusCode: 400,
-        })
-      }
-
     res.json(newSpot)
 
 });
