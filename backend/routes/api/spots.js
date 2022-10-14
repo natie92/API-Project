@@ -93,7 +93,15 @@ router.get('/:spotId', async (req, res, next) => {
     const currentSpot = await Spot.findAll({
         where: {
             id
-        }
+        },
+        include: [
+            {
+                model: User, as: 'Owner',
+                attributes: [
+                    'id','firstName','lastName'
+                ]
+            }
+        ]
     })
 
     let airbnbspots = [];
