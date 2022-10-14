@@ -107,10 +107,12 @@ router.get('/:spotId', async (req, res, next) => {
 
     airbnbspots.forEach((spot) => {
         spot.Owner = spot.User
+        airbnbspots.push(spot)
     })
 
     res.json(airbnbspots);
 });
+
 
 
 module.exports = router;
