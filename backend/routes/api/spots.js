@@ -114,11 +114,11 @@ router.get('/:spotId', async (req, res, next) => {
 });
 
 router.post('/', requireAuth, async (req, res, next) => {
-    const { id } = req.user;
-    const user = await User.findByPk(id)
+    // const { id } = req.user;
+    // const user = await User.findByPk(id)
     const {address, city, state, country, lat, lng, name, description, price} = req.body;
 
-    const newSpot = await user.createSpot({
+    const newSpot = await Spot.create({
         address,
         city,
         state,
