@@ -85,7 +85,7 @@ router.get('/:spotId', async (req, res, next) => {
     const noSpot = await Spot.findByPk(id);
 
     if (!noSpot) {
-        const err = new Error("Spot does not exist with provided id")
+        const err = new Error("Spot could not be found")
         err.status = 404;
 
         return next(err);
@@ -95,12 +95,7 @@ router.get('/:spotId', async (req, res, next) => {
             id
         },
         include: [
-            {
-                model: User, as: 'Owner',
-                attributes: [
-                    'id','firstName','lastName'
-                ]
-            }
+            { model: User}
         ]
     })
 
@@ -108,6 +103,10 @@ router.get('/:spotId', async (req, res, next) => {
 
     currentSpot.forEach((location) => {
         airbnbspots.push(location)
+    })
+
+    airbnbspots.forEach((spot) => {
+        spot.Owner = spot.User
     })
 
     res.json(airbnbspots);
