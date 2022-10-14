@@ -131,19 +131,19 @@ router.post('/', requireAuth, async (req, res, next) => {
         price
     })
 
-    const isValidSpot = await Spot.findAll({
-        where: {
-            address: newSpot.address,
-            city: newSpot.city,
-            state: newSpot.state,
-            country: newSpot.country,
-            lat: newSpot.lat,
-            lng: newSpot.lng,
-            name: newSpot.name,
-            description: newSpot.description,
-            price: newSpot.price,
-        }
-    })
+    // const isValidSpot = await Spot.findAll({
+    //     where: {
+    //         address: newSpot.address,
+    //         city: newSpot.city,
+    //         state: newSpot.state,
+    //         country: newSpot.country,
+    //         lat: newSpot.lat,
+    //         lng: newSpot.lng,
+    //         name: newSpot.name,
+    //         description: newSpot.description,
+    //         price: newSpot.price,
+    //     }
+    // })
 
     res.json(newSpot)
 
