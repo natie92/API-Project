@@ -82,6 +82,13 @@ router.get('/current', requireAuth, async (req, res) => {
 
 router.get('/:spotId', async (req, res, next) => {
     const id = req.params.spotId;
+    const noSpot = await Spot.findByPk(spotId);
+    if (!noSpot) {
+        const err = new Error("Spot does not exist with provided id")
+        err.status = 404;
+
+        return next(err);
+    }
     const currentSpot = await Spot.findAll({
         where: {
             id
