@@ -126,6 +126,10 @@ router.post('/', requireAuth, async (req, res, next) => {
     const user = await User.findByPk(id)
     const {address, city, state, country, lat, lng, name, description, price} = req.body;
 
+    if(!address || !city || !state || !country || !lat || !lng || !name || !description
+        || price){
+
+    }
     const newSpot = await Spot.create({
         ownerId: user.id,
         address,
@@ -154,14 +158,14 @@ router.post('/', requireAuth, async (req, res, next) => {
         }
     });
 
-    if( !isValidSpot.address &&
-        !isValidSpot.city &&
-        !isValidSpot.state &&
-        !isValidSpot.country &&
-        !isValidSpot.lat &&
-        !isValidSpot.lng &&
-        !isValidSpot.name < 50 &&
-        !isValidSpot.description &&
+    if( !isValidSpot.address ||
+        !isValidSpot.city ||
+        !isValidSpot.state ||
+        !isValidSpot.country ||
+        !isValidSpot.lat ||
+        !isValidSpot.lng ||
+        !isValidSpot.name ||
+        !isValidSpot.description ||
         !isValidSpot.price
       ){
         res.status(400).json({

@@ -40,6 +40,7 @@ router.post('/', validateLogin, async (req, res, next) => {
   }
 );
 
+
 // log out User
 
 router.delete('/',(_req, res) => {
@@ -50,9 +51,11 @@ router.delete('/',(_req, res) => {
 
 router.get('/',restoreUser,(req, res) => {
     const { user } = req;
+    const { token } = req.cookies
     if (user) {
       return res.json({
-        user: user.toSafeObject()
+        user: user.toSafeObject(),
+        token
       });
     } else return res.json({});
   }
