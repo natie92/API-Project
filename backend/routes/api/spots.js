@@ -1,7 +1,9 @@
 const express = require("express");
 
 const { restoreUser, requireAuth } = require("../../utils/auth");
-const { Spot, User} = require("../../db/models");
+const { Spot, User, SpotImage, Review, ReviewImage, Booking } = require("../../db/models");
+
+const { Op } = require('sequelize');
 
 // const { check, query } = require("express-validator");
 // const { handleValidationErrors } = require("../../utils/validation");
@@ -52,13 +54,15 @@ router.get('/', async (req, res, next) => {
 
     airbnbspots.forEach((location) => {
         spots.push(location)
-    })
+    });
 
-    console.log(spots)
+
+    //console.log(spots)
 
     res.json(spots)
 });
 
+// get all spots owned from curr user
 
 router.get('/current', requireAuth, async (req, res) => {
     const { user } = req;
@@ -79,6 +83,8 @@ router.get('/current', requireAuth, async (req, res) => {
     return res.json(airbnbspots)
 
 });
+
+//get details of spot from an id
 
 router.get('/:spotId', async (req, res, next) => {
     const id = req.params.spotId;
@@ -113,6 +119,8 @@ router.get('/:spotId', async (req, res, next) => {
     res.json(airbnbspots);
 });
 
+
+// create a spot
 router.post('/', requireAuth, async (req, res, next) => {
     const { id } = req.user;
     const user = await User.findByPk(id)
@@ -129,21 +137,50 @@ router.post('/', requireAuth, async (req, res, next) => {
         name,
         description,
         price
-    })
+    });
 
-    // const isValidSpot = await Spot.findAll({
-    //     where: {
-    //         address: newSpot.address,
-    //         city: newSpot.city,
-    //         state: newSpot.state,
-    //         country: newSpot.country,
-    //         lat: newSpot.lat,
-    //         lng: newSpot.lng,
-    //         name: newSpot.name,
-    //         description: newSpot.description,
-    //         price: newSpot.price,
-    //     }
-    // })
+
+    const isValidSpot = await Spot.findAll({
+        where: {
+            address: newSpot.address,
+            city: newSpot.city,
+            state: newSpot.state,
+            country: newSpot.country,
+            lat: newSpot.lat,
+            lng: newSpot.lng,
+            name: newSpot.name,
+            description: newSpot.description,
+            price: newSpot.price,
+        }
+    });
+
+    if( !isValidSpot.address &&
+        !isValidSpot.city &&
+        !isValidSpot.state &&
+        !isValidSpot.country &&
+        !isValidSpot.lat &&
+        !isValidSpot.lng &&
+        !isValidSpot.name < 50 &&
+        !isValidSpot.description &&
+        !isValidSpot.price
+      ){
+        res.status(400).json({
+            message: 'Validation Error',
+            statuscode: 400,
+            errors: {
+                address: 'Street address is required',
+                city: "City is required",
+                state: "State is required",
+                country: "Country is required",
+                lat: "Latitude is not valid",
+                lng: "Longitude is not valid",
+                name: "Name must be less than 50 characters",
+                description: "Description is required",
+                price: "Price per day is required"
+            }
+        })
+
+    }
 
     res.json(newSpot)
 

@@ -20,6 +20,8 @@ const validateLogin = [
   handleValidationErrors
 ];
 
+// login User
+
 router.post('/', validateLogin, async (req, res, next) => {
     const { credential, password } = req.body;
     const user = await User.login({ credential, password });
@@ -31,13 +33,14 @@ router.post('/', validateLogin, async (req, res, next) => {
       statusCode: 401,
     });
     }
-    
+
     user.dataValues.token = await setTokenCookie(res, user);
 
     return res.json({user});
   }
 );
 
+// log out User
 
 router.delete('/',(_req, res) => {
     res.clearCookie('token');
