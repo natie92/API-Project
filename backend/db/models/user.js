@@ -11,9 +11,6 @@ module.exports = (sequelize, DataTypes) => {
      validatePassword(password){
       return bcrypt.compareSync(password, this.hashedPassword.toString());
     }
-    static associate(models) {
-      // define association here
-    }
     static getCurrentUserById(id){
       return User.scope('currentUser').findByPk(id);
     }
@@ -31,11 +28,10 @@ module.exports = (sequelize, DataTypes) => {
       if (user && user.validatePassword(password)) {
         return await User.scope('currentUser').findByPk(user.id)
       }
-
-
     }
 
-    static async signup({ firstName, lastName, username, email, password }) {
+    
+     static async signup({ firstName, lastName, username, email, password }) {
       const hashedPassword = bcrypt.hashSync(password);
       const user = await User.create({
         firstName,
@@ -46,6 +42,24 @@ module.exports = (sequelize, DataTypes) => {
       });
       return await User.scope('currentUser').findByPk(user.id);
     }
+
+
+    static associate(models) {
+      User.hasMany(models.Spot, {
+        foreignKey: 'ownerId',
+        onDelete: 'cascade'
+      });
+      User.hasMany(models.Booking, {
+        foreignKey:'userId',
+        onDelete: 'cascade'
+      });
+      User.hasMany(models.Review, {
+        foreignKey: 'userId',
+        onDelete: 'cascade'
+      });
+    }
+
+
   };
   User.init({
     firstName: {

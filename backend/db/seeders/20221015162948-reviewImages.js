@@ -12,17 +12,19 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   await queryInterface.bulkInsert("SpotImages", [
+   await queryInterface.bulkInsert('ReviewImages', [
     {
-      spotId: 1,
-      url: 'airbnb1.com/room.jpg',
-      preview: true,
+      id: 1,
+      reviewId: 1,
+      url: 'anotherspot.com'
+
     },
-    {
-      spotId: 2,
-      url: 'locationwoods.com/woods.jpg',
-      preview: true
-    }], {})
+     {
+      id: 2,
+      reviewId: 2,
+      url: 'onemorespot.com'
+    },
+  ])
   },
 
   async down (queryInterface, Sequelize) {
@@ -32,12 +34,11 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    const Op = Sequelize.Op;
-    await queryInterface.bulkDelete('SpotImages',
+    await queryInterface.bultDelete('ReviewImages',
     {
-      spotId: [1,2],
+      id: [1,2],
     },
     {}
     )
-  }
+  },
 };
