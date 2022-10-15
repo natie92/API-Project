@@ -12,6 +12,24 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+   await queryInterface.bulkInsert("SpotImages", [
+    {
+      spotId: 1,
+      url: 'airbnb1.com/room.jpg',
+      preview: true,
+    },
+    {
+      spotId: 2,
+      url: 'locationwoods.com/woods.jpg',
+      preview: true
+    },
+     {
+      spotId: 3,
+      url: 'uglycabin.com/ick.jpg',
+      preview: false,
+    },
+
+   ])
   },
 
   async down (queryInterface, Sequelize) {
@@ -21,5 +39,12 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+    const Op = Sequelize.Op;
+    await queryInterface.bulkDelete('SpotImages',
+    {
+      spotId: [1,2,3],
+    },
+    {}
+    )
   }
 };
