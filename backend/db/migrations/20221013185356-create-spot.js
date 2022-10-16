@@ -20,6 +20,7 @@ module.exports = {
         onDelete: "cascade",
       },
       address: {
+        unique: true,
         allowNull: false,
         type: Sequelize.STRING,
       },

@@ -126,49 +126,11 @@ router.post('/', requireAuth, async (req, res, next) => {
     const user = await User.findByPk(id)
     const {address, city, state, country, lat, lng, name, description, price} = req.body;
 
-    if(!address || !city || !state || !country || !lat || !lng || !name || !description
-        || price){
+    // console.log(user);
+    // console.log(id);
 
-    }
-    const newSpot = await Spot.create({
-        ownerId: user.id,
-        address,
-        city,
-        state,
-        country,
-        lat,
-        lng,
-        name,
-        description,
-        price
-    });
-
-
-    const isValidSpot = await Spot.findAll({
-        where: {
-            address: newSpot.address,
-            city: newSpot.city,
-            state: newSpot.state,
-            country: newSpot.country,
-            lat: newSpot.lat,
-            lng: newSpot.lng,
-            name: newSpot.name,
-            description: newSpot.description,
-            price: newSpot.price,
-        }
-    });
-
-    if( !isValidSpot.address ||
-        !isValidSpot.city ||
-        !isValidSpot.state ||
-        !isValidSpot.country ||
-        !isValidSpot.lat ||
-        !isValidSpot.lng ||
-        !isValidSpot.name ||
-        !isValidSpot.description ||
-        !isValidSpot.price
-      ){
-        res.status(400).json({
+    if(!address || !city || !state || !country){
+          return  res.status(400).json({
             message: 'Validation Error',
             statuscode: 400,
             errors: {
@@ -185,8 +147,39 @@ router.post('/', requireAuth, async (req, res, next) => {
         })
 
     }
+    const newSpot = await Spot.create({
+        ownerId: user.id,
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
+    });
 
-    res.json(newSpot)
+
+
+    const isValidSpot = await Spot.findAll({
+        where: {
+            address: newSpot.address
+        }
+    });
+
+    console.log(isValidSpot)
+
+    if(isValidSpot.address === newSpot.address &&
+        isValidSpot.city === newSpot.city &&
+        isValidSpot.state === newSpot.state) {
+            res.status(403).json({
+                message: 'Address already exists',
+                statusCode: 403
+            })
+        } else {
+            res.status(201).json(newSpot)
+        }
 
 });
 
