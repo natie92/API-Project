@@ -1,65 +1,74 @@
 const express = require("express");
 
 const { restoreUser, requireAuth } = require("../../utils/auth");
-const { Spot, User, SpotImage, Review, ReviewImage, Booking } = require("../../db/models");
+const { Spot, User, SpotImage, Review, ReviewImage, Booking, sequelize } = require("../../db/models");
 
 const { Op } = require('sequelize');
 
-// const { check, query } = require("express-validator");
-// const { handleValidationErrors } = require("../../utils/validation");
+const { check, query } = require("express-validator");
+const { handleValidationErrors } = require("../../utils/validation");
 
 const router = express.Router();
 
-// const validateSpot = [
-//   check('address')
-//     .exists({ checkFalsy: true })
-//     .withMessage('Needs street address'),
-//   check('city')
-//     .exists({ checkFalsy: true })
-//     .withMessage('Needs city'),
-//   check('country')
-//     .exists({ checkFalsy: true })
-//     .withMessage('Needs country'),
-//   check('state')
-//     .exists({ checkFalsy: true })
-//     .withMessage('Needs State'),
-//   check('lat')
-//     .exists({ checkFalsy: true })
-//     .isNumeric({ checkFalsy: true })
-//     .withMessage('Invalid Lat'),
-//   check('lng')
-//     .exists({ checkFalsy: true })
-//     .isNumeric({ checkFalsy: true })
-//     .withMessage('Invalid Lng'),
-//   check("name")
-//     .exists({ checkFalsy: true })
-//     .isLength({ max: 80 })
-//     .withMessage("Invalid name, must be less than 80 characters"),
-//   check("description")
-//     .exists({ checkFalsy: true })
-//     .withMessage("Description must be entered"),
-//   check("price")
-//     .exists({ checkFalsy: true })
-//     .isInt({ checkFalsy: true })
-//     .withMessage("Price per night is needed"),
-//   handleValidationErrors,
-// ];
+const validateSpot = [
+    check('address')
+    .exists({ checkFalsy: true })
+    .withMessage('Needs street address'),
+    check('city')
+    .exists({ checkFalsy: true })
+    .withMessage('Needs city'),
+    check('country')
+    .exists({ checkFalsy: true })
+    .withMessage('Needs country'),
+    check('state')
+    .exists({ checkFalsy: true })
+    .withMessage('Needs State'),
+    check('lat')
+    .exists({ checkFalsy: true })
+    .isNumeric({ checkFalsy: true })
+    .withMessage('Latitude is not valid'),
+  check('lng')
+    .exists({ checkFalsy: true })
+    .isNumeric({ checkFalsy: true })
+    .withMessage('Longitude is not valid'),
+  check("name")
+    .exists({ checkFalsy: true })
+    .isLength({ max: 80 })
+    .withMessage("Name must be less than 50 characters"),
+  check("description")
+    .exists({ checkFalsy: true })
+    .withMessage("Description must be entered"),
+  check("price")
+    .exists({ checkFalsy: true })
+    .isInt({ checkFalsy: true })
+    .withMessage("Price per night is needed"),
+  handleValidationErrors,
+];
 
 // Get all spots
 
 router.get('/', async (req, res, next) => {
-    let airbnbspots = await Spot.findAll()
+    let airbnbspots = await Spot.findAll({
+        attributes: {
+            include: [
+                [
+                    sequelize.fn('AVG', sequelize.col('Reviews.stars')),
+                    'avgRating',
 
-    let spots = [];
+                ],
+                [ sequelize.col('SpotImages.url'),'previewImage'],
+            ]
+        },
+        group: 'Spot.id',
+        include: [
+            { model: SpotImage, attributes: []},
+            { model: Review , attributes: []},
+        ]
+    })
 
-    airbnbspots.forEach((location) => {
-        spots.push(location)
-    });
-
-
-    //console.log(spots)
-
-    res.json(spots)
+    res.json({
+        Spots: airbnbspots
+    })
 });
 
 // get all spots owned from curr user
@@ -70,18 +79,39 @@ router.get('/current', requireAuth, async (req, res) => {
     const userSpots = await Spot.findAll({
         where: {
             ownerId: user.id
-        }
-    })
+        },
+        include: [ {model: SpotImage, attributes: ['url'] },
+                   {model: Review, attributes: ['stars']  }
+                ],
+    });
 
     let airbnbspots = [];
 
-    userSpots.forEach((location)=> {
+    userSpots.forEach((location) => {
         airbnbspots.push(location)
-    })
-    console.log(airbnbspots)
+    });
+    airbnbspots.forEach((location) => {
+        let allStars = 0;
+        location.Reviews.forEach((e)  => {
+            allStars += e.stars;
+        });
+         location.numReviews = location.Reviews.length
+         location.avgRating = allStars / location.Reviews.length;
+         location.SpotImages.forEach((image) => {
+            if(image.url){
+                location.previewImage = image.url
+            }
+            console.log(image.url)
+        });
+         if(!location.previewImage){
+            location.previewImage = 'No preview image found';
+        }
+        delete location.SpotImages
+        delete location.Reviews
+
+    });
 
     return res.json(airbnbspots)
-
 });
 
 //get details of spot from an id
@@ -96,27 +126,28 @@ router.get('/:spotId', async (req, res, next) => {
 
         return next(err);
     }
-    const currentSpot = await Spot.findAll({
-        where: {
-            id
+    const currentSpot = await Spot.findByPk(id, {
+        attributes: {
+            include: [
+                [
+                    sequelize.fn('COUNT', sequelize.col('Reviews.review')),
+                    'numReviews',
+                ],
+                [ sequelize.fn('AVG', sequelize.col('Reviews.stars')),'avgStarRating'],
+            ]
         },
         include: [
-            { model: User}
+            { model: User, attributes: ['id', 'firstName', 'lastName'] },
+            { model: SpotImage, attributes: ['id', 'url','preview']},
+            { model: Review, attributes: []}
+
+        ],
+        exclude: [
+            { model: Spot, attributes: []}
         ]
     })
 
-    let airbnbspots = [];
-
-    currentSpot.forEach((location) => {
-        airbnbspots.push(location)
-    })
-
-    airbnbspots.forEach((spot) => {
-        spot.Owner = spot.User
-        airbnbspots.push(spot)
-    })
-
-    res.json(airbnbspots);
+    res.json(currentSpot);
 });
 
 
@@ -168,7 +199,7 @@ router.post('/', requireAuth, async (req, res, next) => {
         }
     });
 
-    console.log(isValidSpot)
+    //console.log(isValidSpot)
 
     if(isValidSpot.address === newSpot.address &&
         isValidSpot.city === newSpot.city &&
@@ -196,8 +227,8 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
         }
     });
 
-    console.log(spot)
-    console.log(user)
+    // console.log(spot)
+    // console.log(user)
 
     if(!spot){
         return res.status(404).json({
@@ -227,6 +258,63 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
     delete image.updatedAt;
 
     res.json(newImage)
+
+});
+
+//edit a spot
+
+router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
+    const spotId = req.params.spotId;
+    const {
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
+    } = req.body;
+
+    const spot = await Spot.findByPk(spotId);
+
+    if(!spot){
+        return res.status(404).json({
+            message: "Spot couldn't be found",
+            statusCode: 404,
+        });
+    }
+
+    // if (req.user.id !== spot.ownerId){
+    //      return  res.status(400).json({
+    //         message: 'Validation Error',
+    //         statuscode: 400,
+    //         errors: {
+    //             address: 'Street address is required',
+    //             city: "City is required",
+    //             state: "State is required",
+    //             country: "Country is required",
+    //             lat: "Latitude is not valid",
+    //             lng: "Longitude is not valid",
+    //             name: "Name must be less than 50 characters",
+    //             description: "Description is required",
+    //             price: "Price per day is required"
+    //         }
+    //     })
+    // }
+    spot.update({
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
+    });
+    res.json(spot)
 
 });
 
