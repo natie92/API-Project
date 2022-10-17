@@ -49,6 +49,8 @@ router.delete('/',(_req, res) => {
   }
 );
 
+//get curr user
+
 router.get('/',restoreUser,(req, res) => {
     const { user } = req;
     const { token } = req.cookies

@@ -80,38 +80,26 @@ router.get('/current', requireAuth, async (req, res) => {
         where: {
             ownerId: user.id
         },
-        include: [ {model: SpotImage, attributes: ['url'] },
-                   {model: Review, attributes: ['stars']  }
+        attributes: {
+            include: [
+                [
+                    sequelize.fn('AVG', sequelize.col('Reviews.stars')),
+                    'avgRating',
                 ],
-    });
-
-    let airbnbspots = [];
-
-    userSpots.forEach((location) => {
-        airbnbspots.push(location)
-    });
-    airbnbspots.forEach((location) => {
-        let allStars = 0;
-        location.Reviews.forEach((e)  => {
-            allStars += e.stars;
-        });
-         location.numReviews = location.Reviews.length
-         location.avgRating = allStars / location.Reviews.length;
-         location.SpotImages.forEach((image) => {
-            if(image.url){
-                location.previewImage = image.url
-            }
-            console.log(image.url)
-        });
-         if(!location.previewImage){
-            location.previewImage = 'No preview image found';
-        }
-        delete location.SpotImages
-        delete location.Reviews
+                [ sequelize.col('SpotImages.url'),'previewImage'],
+            ]
+        },
+        group: 'Spot.id',
+        include: [
+            { model: SpotImage, attributes: []},
+            { model: Review, attributes: []}
+        ]
 
     });
 
-    return res.json(airbnbspots)
+
+    return res.json({
+        Spots: userSpots})
 });
 
 //get details of spot from an id
@@ -121,10 +109,10 @@ router.get('/:spotId', async (req, res, next) => {
     const noSpot = await Spot.findByPk(id);
 
     if (!noSpot) {
-        const err = new Error("Spot could not be found")
-        err.status = 404;
-
-        return next(err);
+         return res.status(404).json({
+            message: "Spot couldn't be found",
+            statusCode: 404,
+        })
     }
     const currentSpot = await Spot.findByPk(id, {
         attributes: {
@@ -277,7 +265,9 @@ router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
         price
     } = req.body;
 
-    const spot = await Spot.findByPk(spotId);
+    const spot = await Spot.findByPk(spotId, {
+
+    });
 
     if(!spot){
         return res.status(404).json({
@@ -318,5 +308,31 @@ router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
 
 });
 
+
+//delete a spot
+router.delete('/:spotId',requireAuth, async (req,res,next) => {
+    const spotId = req.params.spotId;
+    const userId = req.user.id;
+    const spot = await Spot.findByPk(spotId)
+
+    if(!spot){
+        return res.status(404).json({
+            message: "Spot couldn't be found",
+            statusCode: 404,
+        })
+    }
+    if(userId !== spot.ownerId){
+        return res.status(403).json({
+            message: "Forbidden",
+            statusCode:403,
+        })
+    }
+    await spot.destroy();
+    res.json({
+        message: 'Successfully deleted',
+        statusCode: 200,
+    })
+
+});
 
 module.exports = router;
