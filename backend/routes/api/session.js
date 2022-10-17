@@ -23,22 +23,23 @@ const validateLogin = [
 // login User
 
 router.post('/', validateLogin, async (req, res, next) => {
-    const { credential, password } = req.body;
-    const user = await User.login({ credential, password });
+  const { credential, password } = req.body;
 
+  const user = await User.login({ credential, password });
 
-    if (!user) {
-      return res.status(401).json({
-      message: "Invalid credentials",
+  if(!user){
+    return res.status(401).json({
+      message: 'Invalid credentials',
       statusCode: 401,
-    });
-    }
-
-    user.dataValues.token = await setTokenCookie(res, user);
-
-    return res.json({user});
+    })
   }
-);
+
+  user.dataValues.token = await setTokenCookie(res, user);
+
+  return res.json(user);
+
+
+});
 
 
 // log out User
@@ -46,21 +47,30 @@ router.post('/', validateLogin, async (req, res, next) => {
 router.delete('/',(_req, res) => {
     res.clearCookie('token');
     return res.json({ message: 'success' });
-  }
-);
+
+});
 
 //get curr user
 
-router.get('/',restoreUser,(req, res) => {
+router.get('/',restoreUser, async (req, res) => {
+    // const { user } = req;
+    // const { token } = req.cookies
+    // if (user) {
+    //   return res.json({
+    //     user: user.toSafeObject(),
+    //     token
+    //   });
+    // } else return res.json({});
     const { user } = req;
-    const { token } = req.cookies
-    if (user) {
-      return res.json({
-        user: user.toSafeObject(),
-        token
-      });
-    } else return res.json({});
-  }
-);
+
+    user.dataValues.token = await setTokenCookie(res, user)
+    
+    if(user){
+      return res.json(user.dataValues)
+    } else{
+      return res.json({})
+    }
+
+});
 
 module.exports = router;

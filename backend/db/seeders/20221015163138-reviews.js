@@ -26,6 +26,13 @@ module.exports = {
       spotId: 2,
       review: 'Super cozy and only a few blocks away from the golf course!',
       stars: 4
+    },
+     {
+      id: 4,
+      userId: 5,
+      spotId: 2,
+      review: 'AMAZING RECOMMEND TO EVERYONE!',
+      stars: 5
     }
    ])
   },
