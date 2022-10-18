@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'cascade'
       });
       Spot.belongsTo(models.User, {
+        as: 'Owner',
         foreignKey: 'ownerId'
       });
     }
@@ -79,7 +80,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     sequelize,
     modelName: 'Spot',
-    
+
   });
   return Spot;
 };

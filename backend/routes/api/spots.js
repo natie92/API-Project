@@ -136,9 +136,9 @@ router.get('/:spotId', async (req, res, next) => {
                 [ sequelize.fn('AVG', sequelize.col('Reviews.stars')),'avgStarRating'],
             ]
         },
-        group: ['Reviews.review', 'Reviews.stars', 'Spot.id', 'User.id', 'SpotImages.id'],
+        group: ['Reviews.review', 'Reviews.stars', 'Spot.id', 'Owner.id', 'SpotImages.id'],
         include: [
-            { model: User, attributes: ['id', 'firstName', 'lastName'] },
+            { model: User, as: 'Owner', attributes: ['id', 'firstName', 'lastName'] },
             { model: SpotImage, attributes: ['id', 'url','preview']},
             { model: Review, attributes: []}
 
@@ -223,65 +223,20 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
         const spot = await Spot.findByPk(spotId);
 
     if (!spot) {
-      const err = new Error("Spot couldn't be found");
-      err.status = 404;
-      return next(err);
+      return res.status(404).json({
+        message: "Spot couldn't be found",
+        statusCode: 403,
+      })
     }
     if (userId !== spot.ownerId) {
-      const err = new Error("Forbidden");
-      err.status = 403;
-      return next(err);
+        return res.status(404).json({
+            message: "Forbidden",
+            statusCode: 404,
+        })
     }
     const image = await SpotImage.create({ spotId, userId, url: req.body.url, preview: req.body.preview});
-    // const result = await Image.findByPk(image.id);
-    // res.json(result);
-
-    // console.log(image);
-    const { id, imageableId, url } = image;
-    res.json({ id, imageableId, url });
-
-    // const { url } = req.body;
-    // const { url, preview } = req.body;
-    // const { user } = req;
-    // const { spotId } = req.params;
-
-    // const spot = await Spot.findOne({
-    //     where: {
-    //         id: spotId
-    //     }
-    // });
-
-    // // console.log(spot)
-    // // console.log(user)
-
-    // if(!spot){
-    //     return res.status(404).json({
-    //         message: "Spot couldn't be found",
-    //         statusCode: 404,
-    //     })
-    // }
-
-    // if(user.id !== spot.ownerId){
-    //     return res.status(403).json({
-    //         message: "Forbidden",
-    //         statusCode: 403
-    //     })
-    // }
-
-    // const image = await SpotImage.create({
-    //     spotId,
-    //     url,
-    //     preview,
-    // })
-
-
-
-    // let newImage = image.toJSON()
-    // delete image.spotId;
-    // delete image.createdAt;
-    // delete image.updatedAt;
-
-    // res.json(newImage)
+    const { id, url, preview} = image
+    res.json({id, url, preview});
 
 });
 
