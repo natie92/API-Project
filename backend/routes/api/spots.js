@@ -217,16 +217,19 @@ router.post('/', requireAuth, async (req, res, next) => {
 
 // Add an Image to a Spot basedon spotId
 
-router.post('/:spotId/images', requireAuth, async (req, res) => {
+router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         const userId = req.user.id;
         const { spotId } = req.params;
         const spot = await Spot.findByPk(spotId);
 
     if (!spot) {
-      return res.status(404).json({
-        message: "Spot couldn't be found",
-        statusCode: 404,
-      })
+    //   return res.status(404).json({
+    //     message: "Spot couldn't be found",
+    //     statusCode: 404,
+    //   })
+    const err = new Error ("Spot couldn't be found");
+    err.status = 404
+    return next(err)
     }
     if (userId !== spot.ownerId) {
         return res.status(404).json({
