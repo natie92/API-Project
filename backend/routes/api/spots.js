@@ -225,13 +225,13 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
     if (!spot) {
       return res.status(404).json({
         message: "Spot couldn't be found",
-        statusCode: 403,
+        statusCode: 404,
       })
     }
     if (userId !== spot.ownerId) {
         return res.status(404).json({
             message: "Forbidden",
-            statusCode: 404,
+            statusCode: 403,
         })
     }
     const image = await SpotImage.create({ spotId, userId, url: req.body.url, preview: req.body.preview});
