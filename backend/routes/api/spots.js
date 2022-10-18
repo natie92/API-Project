@@ -71,7 +71,7 @@ router.get('/', async (req, res, next) => {
                 [ sequelize.col('SpotImages.url'),'previewImage'],
             ]
         },
-        group: 'Spot.id',
+        group: ['Spot.id', 'SpotImages.url'],
         include: [
             { model: SpotImage, attributes: []},
             { model: Review , attributes: []},
@@ -217,47 +217,70 @@ router.post('/', requireAuth, async (req, res, next) => {
 // Add an Image to a Spot basedon spotId
 
 router.post('/:spotId/images', requireAuth, async (req, res) => {
-    const { url, preview } = req.body;
-    const { user } = req;
-    const { spotId } = req.params;
+        const userId = req.user.id;
+        const { spotId } = req.params;
+        const spot = await Spot.findByPk(spotId);
 
-    const spot = await Spot.findOne({
-        where: {
-            id: spotId
-        }
-    });
-
-    // console.log(spot)
-    // console.log(user)
-
-    if(!spot){
-        return res.status(404).json({
-            message: "Spot couldn't be found",
-            statusCode: 404,
-        })
+    if (!spot) {
+      const err = new Error("Spot couldn't be found");
+      err.status = 404;
+      return next(err);
     }
-
-    if(user.id !== spot.ownerId){
-        return res.status(403).json({
-            message: "Forbidden",
-            statusCode: 403
-        })
+    if (userId !== spot.ownerId) {
+      const err = new Error("Forbidden");
+      err.status = 403;
+      return next(err);
     }
+    const image = await SpotImage.create({ spotId, userId, url: req.body.url, preview: req.body.preview});
+    // const result = await Image.findByPk(image.id);
+    // res.json(result);
 
-    const image = await SpotImage.create({
-        spotId,
-        url,
-        preview,
-    })
+    // console.log(image);
+    const { id, imageableId, url } = image;
+    res.json({ id, imageableId, url });
+
+    // const { url } = req.body;
+    // const { url, preview } = req.body;
+    // const { user } = req;
+    // const { spotId } = req.params;
+
+    // const spot = await Spot.findOne({
+    //     where: {
+    //         id: spotId
+    //     }
+    // });
+
+    // // console.log(spot)
+    // // console.log(user)
+
+    // if(!spot){
+    //     return res.status(404).json({
+    //         message: "Spot couldn't be found",
+    //         statusCode: 404,
+    //     })
+    // }
+
+    // if(user.id !== spot.ownerId){
+    //     return res.status(403).json({
+    //         message: "Forbidden",
+    //         statusCode: 403
+    //     })
+    // }
+
+    // const image = await SpotImage.create({
+    //     spotId,
+    //     url,
+    //     preview,
+    // })
 
 
 
-    let newImage = image.toJSON()
-    delete image.spotId;
-    delete image.createdAt;
-    delete image.updatedAt;
+    // let newImage = image.toJSON()
+    // delete image.spotId;
+    // delete image.createdAt;
+    // delete image.updatedAt;
 
-    res.json(newImage)
+    // res.json(newImage)
 
 });
 
