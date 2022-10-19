@@ -154,8 +154,8 @@ router.get('/:spotId', async (req, res, next) => {
 
 // create a spot
 router.post('/', requireAuth, async (req, res, next) => {
-    const { id } = req.user;
-    const user = await User.findByPk(id)
+    // const { id } = req.user;
+    // const user = await User.findByPk(id)
     const {address, city, state, country, lat, lng, name, description, price} = req.body;
 
     // console.log(user);
@@ -180,7 +180,7 @@ router.post('/', requireAuth, async (req, res, next) => {
 
     }
     const newSpot = await Spot.create({
-        ownerId: user.id,
+        ownerId: req.user.id,
         address,
         city,
         state,
@@ -307,13 +307,15 @@ router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
 
 router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, next) => {
     const { review, stars } = req.body;
-    const spotId = req.params.spotId;
-    const userId = req.user.id;
-    const spot = await Spot.findOne({
+    const id = req.params.spotId;
+    const { user } = req;
+    const spot = await Spot.findAll({
         where: {
-            id: spotId
+            id: id
         }
     })
+
+    console.log(id)
     if(!spot){
         return res.status(404).json({
             message: "Spot couldn't be found",
@@ -321,9 +323,9 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
         })
     }
 
-    const checkReview = await Review.findOne({
+    const checkReview = await Review.findAll({
         where: {
-            userId, spotId
+            userId: user.id, spotId: id
         },
         exclude: [
             { model: Spot, attributes: ['createdAt', 'updatedAt']}
@@ -337,8 +339,8 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
     }
 
     const newReview = await Review.create({
-        userId,
-        spotId,
+        userId: user.id,
+        spotId: id,
         review,
         stars,
     })
@@ -356,7 +358,7 @@ router.get('/:spotId/reviews', async (req, res) => {
 
     if(!isValidSpot){
         return res.status(404).json({
-            message: "Spot couldn't be found",
+            message: "Spot couldn't be",
             statusCode: 404,
         })
     }

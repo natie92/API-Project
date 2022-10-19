@@ -47,7 +47,7 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
 
      */
-    const Op = Sequelize.Op;
+    const Op = Sequelize
     await queryInterface.bulkDelete('Spots', null, {});
   }
 };
