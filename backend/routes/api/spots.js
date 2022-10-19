@@ -154,8 +154,8 @@ router.get('/:spotId', async (req, res, next) => {
 
 // create a spot
 router.post('/', requireAuth, async (req, res, next) => {
-    // const { id } = req.user;
-    // const user = await User.findByPk(id)
+    const { id } = req.user;
+    const user = await User.findByPk(id)
     const {address, city, state, country, lat, lng, name, description, price} = req.body;
 
     // console.log(user);
@@ -180,7 +180,7 @@ router.post('/', requireAuth, async (req, res, next) => {
 
     }
     const newSpot = await Spot.create({
-        ownerId: req.user.id,
+        ownerId: user.id,
         address,
         city,
         state,
@@ -307,15 +307,16 @@ router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
 
 router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, next) => {
     const { review, stars } = req.body;
-    const id = req.params.spotId;
-    const { user } = req;
-    const spot = await Spot.findAll({
+    const spotId = req.params.spotId;
+    const userId = req.user.id;
+
+    const spot = await Spot.findOne({
         where: {
-            id: id
+            id: spotId
         }
     })
 
-    console.log(id)
+
     if(!spot){
         return res.status(404).json({
             message: "Spot couldn't be found",
@@ -323,14 +324,16 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
         })
     }
 
-    const checkReview = await Review.findAll({
+    const checkReview = await Review.findOne({
         where: {
-            userId: user.id, spotId: id
+            userId, spotId
         },
         exclude: [
             { model: Spot, attributes: ['createdAt', 'updatedAt']}
         ]
     })
+
+    console.log(checkReview)
     if(checkReview){
         return res.status(403).json({
             message: 'User already has a review for this spot',
@@ -339,8 +342,8 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
     }
 
     const newReview = await Review.create({
-        userId: user.id,
-        spotId: id,
+        userId,
+        spotId,
         review,
         stars,
     })
