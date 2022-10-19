@@ -316,6 +316,9 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
         }
     })
 
+    const spotIdNum = Number(spotId)
+
+    // console.log(typeof(spotIdNum))
 
     if(!spot){
         return res.status(404).json({
@@ -333,7 +336,6 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
         ]
     })
 
-    console.log(checkReview)
     if(checkReview){
         return res.status(403).json({
             message: 'User already has a review for this spot',
@@ -343,7 +345,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
 
     const newReview = await Review.create({
         userId,
-        spotId,
+        spotId: spotIdNum,
         review,
         stars,
     })
