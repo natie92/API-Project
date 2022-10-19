@@ -20,7 +20,7 @@ router.use('/spots', spotsRouter);
 router.use('/spot-images', spotImagesRouter);
 router.use('/reviews', reviewsRouter);
 router.use('/bookings', bookingRouter);
-router.use('.review-images', reviewImagesRouter);
+router.use('/review-images', reviewImagesRouter);
 
 
 router.post('/test', (req, res) => {
