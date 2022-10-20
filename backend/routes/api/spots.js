@@ -384,7 +384,9 @@ router.get('/:spotId/reviews', async (req, res) => {
     })
     res.json({ Reviews: allReviews})
 
-})
+});
+
+
 
 
 //delete a spot
