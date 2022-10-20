@@ -73,20 +73,66 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
 router.get('/current',requireAuth, async (req, res) => {
     const userId = req.user.id
 
-    console.log(userId)
+    // console.log(userId)
 
     const userReviews = await Review.findAll({
         where: {
             userId: userId
         },
+
         include: [
             { model: User, attributes: ["id", "firstName", "lastName"]},
-            { model: Spot, attributes: { exclude: ['description', 'createdAt', 'updatedAt', 'previewImage']}},
-            { model: ReviewImage, attributes: { exclude: ['createdAt', 'updatedAt', 'reviewId']} }
-          ],
-        });
+            { model: ReviewImage, attributes: { exclude: ['createdAt', 'updatedAt', 'reviewId']} },
+            { model: Spot, attributes: { exclude: ['description', 'createdAt', 'updatedAt']}},
+        ]
 
-        res.json({Reviews: userReviews})
+
+    })
+
+    if(userReviews.length === 0){
+        return res.status(404).json({
+            message: " This user has no reviews",
+            statusCode: 404,
+        })
+    }
+
+    const userArr = [];
+    userReviews.forEach((review) => {
+        userArr.push(review.toJSON());
+    })
+
+    // console.log(userArr[0].ReviewImages.length)
+
+    userArr.forEach((review) => {
+        if(review.ReviewImages.length){
+            review.Spot.previewImage = review.ReviewImages[0].url
+        } else {
+            review.Spot.previewImage = ""
+        }
+
+
+    })
+
+
+    // const userReviews = await Review.findAll({
+    //     where: {
+    //         userId: userId
+    //     },
+    //      attributes: {
+    //         include: [
+
+    //             [ sequelize.col('SpotImages.url'),'previewImage'],
+    //         ]
+    //     },
+    //     include: [
+    //         { model: User, attributes: ["id", "firstName", "lastName"]},
+    //         { model: Spot, attributes: { exclude: ['description', 'createdAt', 'updatedAt']}},
+    //         { model: SpotImage, attributes: []},
+    //         { model: ReviewImage, attributes: { exclude: ['createdAt', 'updatedAt', 'reviewId']} }
+    //       ],
+    //     });
+
+        res.json({Reviews: userArr})
 
 });
 
