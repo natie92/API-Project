@@ -367,7 +367,7 @@ router.get('/:spotId/reviews', async (req, res) => {
 
     if(!isValidSpot){
         return res.status(404).json({
-            message: "Spot couldn't be",
+            message: "Spot couldn't be found",
             statusCode: 404,
         })
     }
