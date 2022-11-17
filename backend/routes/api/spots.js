@@ -57,6 +57,18 @@ const validateReview = [
   handleValidationErrors,
 ];
 
+
+const validateBooking = [
+  check("endDate").custom((endDate, { req }) => {
+    if (req.body.startDate >= endDate) {
+      throw new Error("EndDate cannot be on or before startDate");
+    } else {
+      return true;
+    }
+  }),
+  handleValidationErrors,
+];
+
 // Get all spots
 
 router.get('/', async (req, res, next) => {
@@ -412,6 +424,55 @@ router.delete('/:spotId',requireAuth, async (req,res,next) => {
         message: 'Successfully deleted',
         statusCode: 200,
     })
+
+});
+
+// create a booking from a spot based on the spot's id
+
+router.post('/:spotId/bookings', requireAuth, restoreUser, validateBooking, async (req, res) => {
+    const { startDate, endDate } = req.body;
+    const spotId = req.params.spotId;
+    const userId = req.user.id;
+
+    const spot = await Spot.findByPk(spotId);
+
+    if (!spot){
+        return res.status(400).json({
+            message: "Spot couldn't be found",
+            statusCode: 404,
+        })
+    }
+    if(userId == spot.ownerId){
+        return res.status(403).json({
+            message: "Forbidden",
+            statusCode: 403,
+        })
+    }
+
+    const bookedStartDate = await Booking.findOne({
+        where: {
+            spotId,
+            endDate,
+        }
+    })
+
+    const bookedEndDate = await Booking.findOne({
+        where: {
+            spotId,
+            endDate,
+        }
+    })
+
+    if(bookedStartDate || bookedEndDate) {
+           return res.status(403).json({
+            message: "Sorry, this spot is already booked for the specified dates",
+            statusCode: 403,
+        })
+    }
+
+    if(bookedStartDate) {
+        
+    }
 
 });
 
