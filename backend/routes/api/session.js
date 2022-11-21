@@ -63,9 +63,10 @@ router.get('/',restoreUser, async (req, res) => {
     // } else return res.json({});
     const { user } = req;
 
-    user.dataValues.token = await setTokenCookie(res, user)
+
 
     if(user){
+      user.dataValues.token = await setTokenCookie(res, user)
       return res.json(user.dataValues)
     } else{
       return res.json(null)
