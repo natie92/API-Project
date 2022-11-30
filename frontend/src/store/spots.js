@@ -38,6 +38,10 @@ export const getAllSpots = () => async (dispatch) => {
     return res
 };
 
+export const MakeNewSpot = (spot) => async (dispatch) => {
+    const res = await fetch ('api/spots')
+}
+
 
 const spotReducer = (state = {}, action) => {
     let newState = {};
