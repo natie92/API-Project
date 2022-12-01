@@ -8,55 +8,65 @@ const USERSPOTS = '/user/spots';
 
 const getSpots = (spots) => ({
   type: GET,
-  payload: spots,
+  spots,
 });
 
 const addSpot = (newSpot) => ({
     type: ADD,
-    payload: newSpot,
+    newSpot,
 });
 
 const deleteSpot = (spot) => ({
     type: DELETE,
-    payload: spot,
+    spot,
 });
 
 const editSpot = (spot) => ({
     type: EDIT,
-    payload: spot,
+    spot,
 });
 
 const mySpots = (spots) => ({
     type: USERSPOTS,
-    payload: spots,
+    spots,
 });
 
 export const getAllSpots = () => async (dispatch) => {
-    const res = await fetch ('api/spots');
+    const res = await csrfFetch ('api/spots');
     const data = await res.json();
-    dispatch(getSpots(data))
+    dispatch(getSpots(data.Spots))
     return res
 };
 
 export const MakeNewSpot = (spot) => async (dispatch) => {
-    const res = await fetch ('api/spots')
+    const res = await csrfFetch ('api/spots', {
+        method: "POST",
+        headers: { "Content-Type": "application/json"},
+        body: JSON.stringify(spot),
+    })
+    if(res.ok) {
+        const newSpot = await res.json()
+        dispatch(addSpot(newSpot));
+    } else {
+        throw res
+    }
 }
 
 
-const spotReducer = (state = {}, action) => {
-    let newState = {};
-    switch (action.type) {
-        case GET: {
-            const spots = {};
-            action.payload.forEach((spot) => {
-                spots[spot.id] = spot;
-            });
+const initialState = {}
 
-            return {
-                ...spots,
-                ...newState,
-            };
-        }
+const spotReducer = (state = initialState, action) => {
+    let newState;
+    switch (action.type) {
+        case GET:
+            newState = { ...state}
+            action.spots.forEach(spot => {
+                newState[spot.id] = spot
+            });
+            return newState;
+        case ADD:
+            newState = { ...state, [action.newSpot.id]: action.spot };
+            return newState
         default:
         return state;
     }

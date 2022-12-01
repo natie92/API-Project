@@ -3,19 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllSpots } from "../../store/spots";
 import { NavLink } from "react-router-dom";
 
-const frontPageSpots = () => {
-    const dispatch = useDispatch();
+import "./spot.css";
 
-    const allAirBnbSpots = useSelector((state) => Object.values(state.spot));
+const FrontPageSpots = () => {
+    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getAllSpots())
-    }, []);
+    }, [dispatch]);
+
+    const allAirBnbSpots = useSelector((state) => Object.values(state.spots));
 
     return (
        <div className='front-page-container'>
         {allAirBnbSpots.map((spot) => {
-         <div className="spot">
+        return (
+         <div className="spot" key={spot.id}>
             <NavLink key={spot.id} to={`/api/spots/${spot.id}`}>
                 <img src={spot.previewImage} alt={spot.name}/>
                 <div className="info-on-spot">
@@ -27,10 +30,11 @@ const frontPageSpots = () => {
                 </div>
             </NavLink>
          </div>
-        })}
+        )
+    })}
 
        </div>
     )
 };
 
-export default frontPageSpots
+export default FrontPageSpots

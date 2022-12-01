@@ -5,6 +5,8 @@ import LoginFormPage from './components/LoginFormPage';
 import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
+import FrontPageSpots from './components/Spots';
+import * as spotActions from "./store/spots";
 
 function App() {
   const dispatch = useDispatch();
@@ -12,6 +14,7 @@ function App() {
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    dispatch(spotActions.getAllSpots())
   }, [dispatch]);
 
   return (
@@ -19,6 +22,9 @@ function App() {
     <Navigation isLoaded={isLoaded} />
     { isLoaded && (
      <Switch>
+      <Route exact path="/">
+        <FrontPageSpots />
+      </Route>
       <Route path="/login">
         <LoginFormPage />
       </Route>
