@@ -21,12 +21,12 @@ module.exports = {
    await queryInterface.bulkInsert(options, [
     {
       spotId: 1,
-      url: 'airbnb1.com/room.jpg',
+      url: 'https://images.contentstack.io/v3/assets/blt00454ccee8f8fe6b/blt0aa4f256602486c1/618117a59b08490cdd118c37/US_Villas_US_Header.jpg',
       preview: true,
     },
     {
       spotId: 2,
-      url: 'locationwoods.com/woods.jpg',
+      url: 'https://a0.muscache.com/im/pictures/d03d9889-b6c3-42f5-ad84-2c6c4b7a57b2.jpg?im_w=2560',
       preview: true
     }], {})
   },

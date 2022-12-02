@@ -19,7 +19,7 @@ const FrontPageSpots = () => {
         {allAirBnbSpots.map((spot) => {
         return (
          <div className="spot" key={spot.id}>
-            <NavLink key={spot.id} to={`/api/spots/${spot.id}`}>
+            <NavLink key={spot.id} to={`/spots/${spot.id}`}>
                 <img src={spot.previewImage} alt={spot.name}/>
                 <div className="info-on-spot">
                     <div className="country-and-city">

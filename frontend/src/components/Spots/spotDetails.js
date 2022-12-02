@@ -5,7 +5,7 @@ import { getAllSpots } from "../../store/spots";
 
 const SpotDetails = () => {
     const { spotId } = useParams()
-    dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getAllSpots())
@@ -13,13 +13,24 @@ const SpotDetails = () => {
 
     const spot = useSelector((state) => state.spots[spotId]);
 
+    console.log(spot)
+
     return (
         <div>
-            <div className="spot-container" key={spot.id}>
+
+            <div className="spot-container" key={spot?.id}>
+
                 <div className="spot-details">
                     <div className="name">
-                        <h2>{spot.name}</h2>
+                        <h2>{spot?.name}</h2>
                     </div>
+                    <div>
+                        <i className="average-rating"> </i>
+                        {spot?.avgRating}
+                    </div>
+                <div>
+                   {spot?.address}
+                </div>
                 </div>
             </div>
 
@@ -28,3 +39,5 @@ const SpotDetails = () => {
 
 
 }
+
+export default SpotDetails
