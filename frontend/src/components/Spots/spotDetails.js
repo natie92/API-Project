@@ -24,6 +24,7 @@ const SpotDetails = () => {
                     <div className="name">
                         <h2>{spot?.name}</h2>
                     </div>
+                    <img className="spot-details-img" src={spot?.previewImage} alt={spot?.name}></img>
                     <div>
                         <i className="average-rating"> </i>
                         {spot?.avgRating}
@@ -31,9 +32,20 @@ const SpotDetails = () => {
                 <div>
                    {spot?.address}
                 </div>
+                <div>
+                    {spot?.city}, {spot?.state}
+                </div>
+                <div> ${spot?.price} night </div>
+                <div className="description">{spot?.description}</div>
+
+                </div>
+                <div className="reviews-container">
+
                 </div>
             </div>
-
+             <Link to="/">
+                <button className="back">Return to Spots</button>
+            </Link>
         </div>
     )
 
