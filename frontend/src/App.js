@@ -10,6 +10,7 @@ import * as spotActions from "./store/spots";
 import SpotDetails from './components/Spots/spotDetails';
 import MySpots from './components/Spots/mySpots';
 import MakeFormForSpot from './components/Spots/SpotForm';
+import UpdateASpot from './components/Spots/EditFormSpot';
 
 function App() {
   const dispatch = useDispatch();
@@ -39,6 +40,9 @@ function App() {
       </Route>
       <Route path="/spots/:spotId">
         <SpotDetails />
+      </Route>
+      <Route path="/user/edit/:spotId" component={UpdateASpot}>
+        <UpdateASpot/>
       </Route>
       <Route exact path="/user/spots">
         <MySpots />

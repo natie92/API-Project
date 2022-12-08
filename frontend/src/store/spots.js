@@ -66,6 +66,8 @@ export const mySpots = () => async (dispatch) => {
     dispatch(allMySpots(obj))
 };
 
+//EDIT A SPOT
+
 export const UpdateSpot = (spotId, spot) => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/${spotId}`, {
         method: 'PUT',
@@ -76,6 +78,8 @@ export const UpdateSpot = (spotId, spot) => async (dispatch) => {
     const updatedSpot =  await res.json();
     dispatch(editSpot(updatedSpot));
 };
+
+//DELETE A SPOT
 
 export const DeleteASpot = (id) => async (dispatch) => {
     const res = await csrfFetch (`/api/spots/${id}`, {
