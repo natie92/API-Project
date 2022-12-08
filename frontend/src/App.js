@@ -9,6 +9,7 @@ import FrontPageSpots from './components/Spots';
 import * as spotActions from "./store/spots";
 import SpotDetails from './components/Spots/spotDetails';
 import MySpots from './components/Spots/mySpots';
+import MakeFormForSpot from './components/Spots/SpotForm';
 
 function App() {
   const dispatch = useDispatch();
@@ -33,10 +34,13 @@ function App() {
       <Route path="/signup">
         <SignupFormPage />
       </Route>
+      <Route exact path = "/spots/new" component={MakeFormForSpot}>
+        <MakeFormForSpot />
+      </Route>
       <Route path="/spots/:spotId">
         <SpotDetails />
       </Route>
-      <Route path="/user/spots">
+      <Route exact path="/user/spots">
         <MySpots />
       </Route>
     </Switch>
