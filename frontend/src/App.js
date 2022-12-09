@@ -9,7 +9,7 @@ import FrontPageSpots from './components/Spots';
 import * as spotActions from "./store/spots";
 import SpotDetails from './components/Spots/spotDetails';
 import MySpots from './components/Spots/mySpots';
-import MakeFormForSpot from './components/Spots/SpotForm';
+import MakeFormForSpot from './components/Spots/CreateSpot';
 import UpdateASpot from './components/Spots/EditFormSpot';
 
 function App() {
@@ -35,13 +35,13 @@ function App() {
       <Route path="/signup">
         <SignupFormPage />
       </Route>
-      <Route exact path = "/spots/new" component={MakeFormForSpot}>
+      <Route exact path = "/spots/new">
         <MakeFormForSpot />
       </Route>
       <Route path="/spots/:spotId">
         <SpotDetails />
       </Route>
-      <Route path="/user/edit/:spotId" component={UpdateASpot}>
+      <Route path="/user/edit/:spotId">
         <UpdateASpot/>
       </Route>
       <Route exact path="/user/spots">

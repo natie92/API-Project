@@ -57,7 +57,7 @@ export const MakeNewSpot = (spot) => async (dispatch) => {
 };
 
 export const mySpots = () => async (dispatch) => {
-    const res = await csrfFetch ('/api/user/spots');
+    const res = await csrfFetch ('/api/spots/current');
     const { Spots } = await res.json();
 
     const obj = {}
@@ -68,26 +68,36 @@ export const mySpots = () => async (dispatch) => {
 
 //EDIT A SPOT
 
-export const UpdateSpot = (spotId, spot) => async (dispatch) => {
-    const res = await csrfFetch(`/api/spots/${spotId}`, {
+export const UpdateSpot = (spot) => async (dispatch) => {
+    const { id } = spot;
+    const res = await csrfFetch(`/api/spots/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(spot),
     });
 
+    if(res.ok) {
     const updatedSpot =  await res.json();
     dispatch(editSpot(updatedSpot));
+    } else {
+        throw res
+    }
 };
 
 //DELETE A SPOT
 
-export const DeleteASpot = (id) => async (dispatch) => {
-    const res = await csrfFetch (`/api/spots/${id}`, {
+export const DeleteASpot = (spotId) => async (dispatch) => {
+    const res = await csrfFetch (`/api/spots/${spotId}`, {
         method: DELETE
     });
 
-    const deletedSpot = await res.json()
-    dispatch(deleteSpot(deletedSpot))
+    if(res.ok) {
+         const deletedSpot = await res.json();
+         dispatch(deleteSpot(spotId));
+         return deletedSpot
+    }
+
+
 }
 
 

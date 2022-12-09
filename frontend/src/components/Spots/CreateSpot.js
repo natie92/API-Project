@@ -40,6 +40,8 @@ const MakeFormForSpot = () => {
         } catch (res) {
             setErrors([]);
             const data = await res.json()
+
+            if(data && data.message) setErrors(data.errors)
         }
     };
 

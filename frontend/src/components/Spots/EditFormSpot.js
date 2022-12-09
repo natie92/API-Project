@@ -57,7 +57,7 @@ const UpdateASpot = () => {
   };
 
     return (
-     <div id="edit-spot-container">
+     <div className="edit-spot-container">
        <form className="edit-spot-form" onSubmit={handleSumbit}>
             <h2>Edit Spot</h2>
             <label>

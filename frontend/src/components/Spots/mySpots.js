@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { mySpots } from "../../store/spots";
 import { Link, useHistory } from "react-router-dom";
 
+import "./spot.css";
+
 const MySpots = () => {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -40,7 +42,7 @@ const MySpots = () => {
                 {spot.avgRating}
               </div>
               <div>
-                <div className="edit-delete-container">
+                <div className="delete-and-edit-container">
                   <Link to={`/user/edit/${spot.id}`}>
                     <button>Edit Spot</button>
                   </Link>

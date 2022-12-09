@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import { getAllSpots } from "../../store/spots";
+import { UpdateSpot } from "../../store/spots";
 
 const SpotDetails = () => {
+    const currSessionUser = useSelector((state) => state.session.user);
     const { spotId } = useParams()
     const dispatch = useDispatch();
 
@@ -13,7 +15,18 @@ const SpotDetails = () => {
 
     const spot = useSelector((state) => state.spots[spotId]);
 
-    console.log(spot)
+    let url;
+  (() => {
+    let currPreview = spot?.SpotImages?.find(
+      (spotImg) => spotImg.preview === true
+    );
+    if (currPreview) {
+      url = currPreview.url;
+    }
+    // else {
+    // //   url = defaultImage;
+    // // }
+  })();
 
     return (
         <div>
@@ -37,6 +50,10 @@ const SpotDetails = () => {
                 </div>
                 <div> ${spot?.price} night </div>
                 <div className="description">{spot?.description}</div>
+
+                <div className="edit-spot-container">
+                    {currSessionUser && currSessionUser.id === spot.ownerId && <UpdateSpot />}
+                </div>
 
                 </div>
                 <div className="reviews-container">
