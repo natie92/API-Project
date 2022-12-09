@@ -18,8 +18,8 @@ const FrontPageSpots = () => {
        <div className='front-page-container'>
         {allAirBnbSpots.map((spot) => {
         return (
+        <NavLink to={`/spots/${spot.id}`} >
          <div className="spot" key={spot.id}>
-            <NavLink key={spot.id} to={`/spots/${spot.id}`}>
                 <img src={spot.previewImage} alt={spot.name}/>
                 <div className="info-on-spot">
                     <div className="country-and-city">
@@ -27,11 +27,15 @@ const FrontPageSpots = () => {
                     </div>
                     <div className="updated-at">{spot.updatedAt}</div>
                     <div className="price">${spot.price}</div>
+
                 </div>
-            </NavLink>
+
          </div>
+         </NavLink>
+
         )
-    })}
+
+        })}
 
        </div>
     )

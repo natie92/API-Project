@@ -26,6 +26,12 @@ function LoginFormPage() {
       });
   }
 
+  const onClick = (e) => {
+    e.preventDefault();
+    setCredential("Demo User");
+    setPassword("password");
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <ul>
@@ -50,6 +56,7 @@ function LoginFormPage() {
         />
       </label>
       <button type="submit">Log In</button>
+      <button type="user-demo" onClick={onClick}>Demo User</button>
     </form>
   );
 }

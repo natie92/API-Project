@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { mySpots } from "../../store/spots";
-import { Link, useHistory } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 
 import "./spot.css";
 
@@ -22,6 +22,7 @@ const MySpots = () => {
 
     return (
         <>
+
         <div className="my-spots-container">
             <div className="my-spots-header">
                 <div className="my-spots">
@@ -33,6 +34,7 @@ const MySpots = () => {
                     </button>
                 </div>
             </div>
+
             <div className="mySpots">
                 {spots.map((spot) => (
             <div className="spot" key={spot.id}>
@@ -55,6 +57,7 @@ const MySpots = () => {
             ))}
             </div>
         </div>
+
         </>
     )
 }
