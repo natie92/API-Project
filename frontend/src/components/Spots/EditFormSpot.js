@@ -4,16 +4,18 @@ import { useParams, useHistory } from "react-router-dom";
 import { mySpots, DeleteASpot } from "../../store/spots";
 import { UpdateSpot } from "../../store/spots";
 
-const UpdateASpot = () => {
-    const { spotId } = useParams;
+export default function UpdateASpot() {
+    const { spotId } = useParams();
     const dispatch = useDispatch();
-    const history = useHistory;
+    const history = useHistory();
 
     useEffect(() => {
         dispatch(mySpots());
     }, [dispatch]);
 
     const editThisSpot = useSelector((state) => state.spots[spotId]);
+    console.log(editThisSpot)
+
 
      const [address, setAddress] = useState(editThisSpot.address);
      const [city, setCity] = useState(editThisSpot.city);
@@ -26,7 +28,7 @@ const UpdateASpot = () => {
      const [price, setPrice] = useState(editThisSpot.price);
      const [errors, setErrors] = useState([]);
 
-     const handleSumbit = async (e) => {
+    const handleSumbit = async (e) => {
         e.preventDefault();
 
         let payload = {
@@ -40,7 +42,7 @@ const UpdateASpot = () => {
         name,
         description,
         price,
-     };
+        };
 
      try {
         await dispatch(UpdateSpot(payload));
@@ -50,11 +52,12 @@ const UpdateASpot = () => {
         const data = await res.json();
      }
 
-     const onClick = async (e) => {
-        e.preventDefault();
-        await dispatch(DeleteASpot(spotId));
-        history.push(`/user/spots`);
-  };
+    //  const onClick = async (e) => {
+    //     e.preventDefault();
+    //     await dispatch(DeleteASpot(spotId));
+    //     history.push(`/user/spots`);
+    //  };
+}
 
     return (
      <div className="edit-spot-container">
@@ -150,14 +153,11 @@ const UpdateASpot = () => {
               <p className="errors">{errors.price}</p>
             </label>
             <input type="submit" />
-            <button className="button-delete" onClick={onClick}>
+            <button className="button-delete">
               Delete
             </button>
         </form>
         </div>
+
     );
     }
-
-};
-
-export default UpdateASpot;

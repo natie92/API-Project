@@ -37,8 +37,8 @@ const MySpots = () => {
 
             <div className="mySpots">
                 {spots.map((spot) => (
-            <div className="spot" key={spot.id}>
-              <img src={spot.previewImage} alt="spot.name"></img>
+            <div className="spot" key={spot?.id}>
+              <img src={spot?.previewImage} alt="spot.name"></img>
               <div className="rating">
                 <i className="stars"></i>
                 {spot.avgRating}
@@ -51,8 +51,8 @@ const MySpots = () => {
                 </div>
                 <Link to={`/spots/${spot.id}`}>{spot.name}</Link>{" "}
               </div>
-              <div>{spot.address}</div>
-              <div>${spot.price}/night</div>
+              <div>{spot?.address}</div>
+              <div>${spot?.price}/night</div>
             </div>
             ))}
             </div>
