@@ -51,7 +51,7 @@ const MySpots = () => {
                     <button>Edit Spot</button>
                   </Link>
                 </div>
-                <Link to={`/spots/${spot.id}`}>{spot.name}</Link>{" "}
+                <Link to={`/spots/${spot.id}`}>{spot.name}</Link>
               </div>
               <div>{spot?.address}</div>
               <div>${spot?.price}/night</div>

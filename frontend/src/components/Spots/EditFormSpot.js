@@ -9,6 +9,7 @@ export default function UpdateASpot() {
     const dispatch = useDispatch();
     const history = useHistory();
 
+
     useEffect(() => {
         dispatch(mySpots());
     }, [dispatch]);
@@ -46,7 +47,7 @@ export default function UpdateASpot() {
 
      try {
         await dispatch(UpdateSpot(payload));
-        history.push(`/user/spots/${spotId}`)
+        history.push(`/user/spots`)
      } catch (res) {
         setErrors([]);
         const data = await res.json();

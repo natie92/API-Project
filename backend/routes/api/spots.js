@@ -165,7 +165,7 @@ router.get('/:spotId', async (req, res, next) => {
 
 
 // create a spot
-router.post('/', requireAuth, async (req, res, next) => {
+router.post('/', requireAuth, validateSpot, async (req, res, next) => {
     const { id } = req.user;
     const user = await User.findByPk(id)
     const {address, city, state, country, lat, lng, name, description, price} = req.body;
@@ -173,24 +173,24 @@ router.post('/', requireAuth, async (req, res, next) => {
     // console.log(user);
     // console.log(id);
 
-    if(!address || !city || !state || !country){
-          return  res.status(400).json({
-            message: 'Validation Error',
-            statuscode: 400,
-            errors: {
-                address: 'Street address is required',
-                city: "City is required",
-                state: "State is required",
-                country: "Country is required",
-                lat: "Latitude is not valid",
-                lng: "Longitude is not valid",
-                name: "Name must be less than 50 characters",
-                description: "Description is required",
-                price: "Price per day is required"
-            }
-        })
+    // if(!address || !city || !state || !country){
+    //       return  res.status(400).json({
+    //         message: 'Validation Error',
+    //         statuscode: 400,
+    //         errors: {
+    //             address: 'Street address is required',
+    //             city: "City is required",
+    //             state: "State is required",
+    //             country: "Country is required",
+    //             lat: "Latitude is not valid",
+    //             lng: "Longitude is not valid",
+    //             name: "Name must be less than 50 characters",
+    //             description: "Description is required",
+    //             price: "Price per day is required"
+    //         }
+    //     })
 
-    }
+    // }
     const newSpot = await Spot.create({
         ownerId: user.id,
         address,
@@ -471,7 +471,7 @@ router.post('/:spotId/bookings', requireAuth, restoreUser, validateBooking, asyn
     }
 
     if(bookedStartDate) {
-        
+
     }
 
 });

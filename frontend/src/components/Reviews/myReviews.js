@@ -12,10 +12,15 @@ export default function GetMyReviews() {
   }, [dispatch]);
 
 
- const reviews = useSelector((state) => Object.values(state.reviews));
+//  const reviews = useSelector(state => {
+//   return state?.reviews
+//  })
+   const reviews = useSelector((state) => Object.values(state.reviews));
 
+console.log(reviews)
 
   return (
+    
     <div className="outer-div">
       <div className="my-reviews-header">
         <h1>My Reviews</h1>
@@ -50,6 +55,6 @@ export default function GetMyReviews() {
         </div>
       </div>
     </div>
-  );
+   );
 
 };
