@@ -52,12 +52,14 @@ export default function UpdateASpot() {
         const data = await res.json();
      }
 
-    //  const onClick = async (e) => {
-    //     e.preventDefault();
-    //     await dispatch(DeleteASpot(spotId));
-    //     history.push(`/user/spots`);
-    //  };
+
 }
+
+ const onClick = async (e) => {
+        e.preventDefault();
+        await dispatch(DeleteASpot(spotId));
+        history.push(`/user/spots`);
+     };
 
     return (
      <div className="edit-spot-container">
@@ -153,7 +155,7 @@ export default function UpdateASpot() {
               <p className="errors">{errors.price}</p>
             </label>
             <input type="submit" />
-            <button className="button-delete">
+            <button className="button-delete" onClick={onClick}>
               Delete
             </button>
         </form>

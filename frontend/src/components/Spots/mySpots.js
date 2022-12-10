@@ -37,12 +37,14 @@ const MySpots = () => {
 
             <div className="mySpots">
                 {spots.map((spot) => (
-            <div className="spot" key={spot?.id}>
-              <img src={spot?.previewImage} alt="spot.name"></img>
-              <div className="rating">
-                <i className="stars"></i>
-                {spot.avgRating}
+              <NavLink to={`/spots/${spot.id}`} >
+              <div className="spot" key={spot?.id}>
+                <img src={spot?.previewImage} alt="spot.name"></img>
+                <div className="rating">
+                  <i className="stars"></i>
+                  {spot.avgRating}
               </div>
+
               <div>
                 <div className="delete-and-edit-container">
                   <Link to={`/user/edit/${spot.id}`}>
@@ -53,7 +55,10 @@ const MySpots = () => {
               </div>
               <div>{spot?.address}</div>
               <div>${spot?.price}/night</div>
+
             </div>
+            </NavLink>
+
             ))}
             </div>
         </div>
