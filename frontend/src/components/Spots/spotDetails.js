@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import { getAllSpots } from "../../store/spots";
 import { UpdateSpot } from "../../store/spots";
+import SpotReviews from "../Reviews/Reviews";
+
+import "./spot.css"
 
 const SpotDetails = () => {
     const currSessionUser = useSelector((state) => state.session.user);
@@ -57,7 +60,7 @@ const SpotDetails = () => {
 
                 </div>
                 <div className="reviews-container">
-
+                    <SpotReviews spotId={spotId} />
                 </div>
             </div>
              <Link to="/">

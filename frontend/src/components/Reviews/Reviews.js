@@ -7,11 +7,13 @@ export default function SpotReviews({ spotId }) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(allReviews(spotId));
-    
+
   }, [dispatch, spotId]);
 
 
    const reviews = useSelector((state) => Object.values(state.reviews));
+
+  
 
   return (
     <div>
@@ -21,6 +23,7 @@ export default function SpotReviews({ spotId }) {
           <div id="review-container" key={review?.id}>
             <div id="review" key={review?.id}>
               {review?.review}
+
             </div>
             <div id="review-date">{review?.createdAt.slice(0, 10)}</div>
             <div>

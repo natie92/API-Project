@@ -40,8 +40,9 @@ function ProfileButton({ user }) {
           activeClassName="Nav-Link-Working">
           My Spots
       </NavLink>
-      <button className="User" onClick={openMenu}>
+      <button className="user-profile" onClick={openMenu}>
         Profile
+        <i className="fas fa-user-circle" />
       </button>
       {showMenu && (
         <ul className="profile-dropdown">

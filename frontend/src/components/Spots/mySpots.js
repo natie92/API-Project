@@ -41,7 +41,7 @@ const MySpots = () => {
               <div className="spot" key={spot?.id}>
                 <img src={spot?.previewImage} alt="spot.name"></img>
                 <div className="rating">
-                  <i className="stars"></i>
+                  <i className="fa-regular fa-star"></i>
                   {spot.avgRating}
               </div>
 
