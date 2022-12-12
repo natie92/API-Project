@@ -9,8 +9,12 @@ import { useParams } from "react-router-dom";
   const { spotId } = useParams();
   const spot = useSelector(state => state.spots[spotId])
   const reviews = useSelector(state => Object.values(state.reviews));
-  console.log(reviews)
-  console.log(spot)
+  const spotReview = reviews.filter((review) => {
+    if(review.spotId === spot.id){
+      return review
+    }
+  })
+
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -23,16 +27,18 @@ import { useParams } from "react-router-dom";
   return (
     <div>
       <div id="spot-reviews-container">
-        {reviews.map((review) => (
+        {spotReview.map((review) => (
           <div id="review-container" key={review?.id}>
             <div id="review" key={review?.id}>
               {review?.review}
 
             </div>
-            <div id="review-date">{review?.createdAt.slice(0, 10)}</div>
+            
+            <div id="review-date">{review?.createdAt?.slice(0, 10)}</div>
             <div>
               <i className="review-stars"> </i>
               {review?.stars}
+
             </div>
             <div>
               {review?.User?.firstName + " "}

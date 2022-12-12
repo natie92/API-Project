@@ -2,15 +2,18 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { AddNewReview, allReviews } from "../../store/reviews";
+import { useParams } from "react-router-dom";
 
 
-export default function ReviewForm({ spotId }) {
+export default function ReviewForm() {
+
+  const { spotId} = useParams();
 
   const dispatch = useDispatch();
   const history = useHistory();
 
   const [review, setReview] = useState("");
-  const [stars, setStars] = useState("");
+  const [stars, setStars] = useState(0);
   const [errors, setErrors] = useState([]);
 
   const handleSubmit = async (e) => {

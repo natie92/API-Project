@@ -1,6 +1,7 @@
 import { csrfFetch } from "./csrf";
 
 const GET_REVIEW = "reviews/get";
+const GET_REVIEW_BY_SPOT = "reviews/by-spot-id"
 const ADD_REVIEW = "reviews/add";
 const MY_REVIEWS = "/user/reviews";
 const EDIT_REVIEW = "/reviews/edit";
@@ -15,6 +16,11 @@ const addReview = (newReview) => ({
   type: ADD_REVIEW,
   newReview,
 });
+
+const getReviewBySpot = (reviews) => ({
+  type: GET_REVIEW_BY_SPOT,
+  reviews
+})
 
 const myReviews = (reviews) => ({
   type: MY_REVIEWS,
@@ -76,6 +82,21 @@ export const MyReviews = () => async (dispatch) => {
   }
 };
 
+
+//GET REVIEW BY SPOT ID
+
+export const GetReviewBySpotId = (spotId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${spotId}/reviews`)
+
+  if(res.ok){
+    const data = await res.json()
+    dispatch(getReviewBySpot(data, spotId))
+
+    return res
+  }
+
+}
+
 //EDIT A REVIEW
 
 
@@ -124,6 +145,11 @@ const reviewsReducer = (state = initialState, action) => {
     case MY_REVIEWS:{
       const newState = { ...action.reviews };
       return newState;
+    }
+
+    case GET_REVIEW_BY_SPOT: {
+      const newState = { ...action.reviews}
+      return newState
     }
     case EDIT_REVIEW:{
       const newState = { ...state, [action.review.id]: action.review };

@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllSpots } from "../../store/spots";
-import { NavLink, Link } from "react-router-dom";
-// import placeHolder from  "./empty-house.png";
+import { NavLink } from "react-router-dom";
 
 
 import "./frontpage.css";
