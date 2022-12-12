@@ -6,8 +6,7 @@ import { useParams } from "react-router-dom";
 
 
 export default function ReviewForm() {
-
-  const { spotId} = useParams();
+  const { spotId } = useParams();
 
   const dispatch = useDispatch();
   const history = useHistory();

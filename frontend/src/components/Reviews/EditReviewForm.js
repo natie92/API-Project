@@ -1,46 +1,50 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { GetMyReviews, reviewEdit } from "../../store/reviews";
-import { reviewDelete } from "../../store/reviews";
+import { MyReviews, deleteAReview, editAReview} from "../../store/reviews";
+
+export default function EditReviewForm() {
+    const { reviewId } = useParams();
+    const dispatch = useDispatch();
+    const history = useHistory();
 
 
-export default function EditSpotForm() {
-  const dispatch = useDispatch();
-  const { reviewId } = useParams();
-  const history = useHistory();
+    useEffect(() => {
+        dispatch(MyReviews());
+    }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(GetMyReviews());
-  }, [dispatch]);
+    const editThisReview = useSelector((state) => state.spots[reviewId]);
+    console.log(editThisReview)
 
-  const reviewToEdit = useSelector((state) => state.reviews[reviewId]);
+    const [review, setReview] = useState(editThisReview.review);
+    const [stars, setStars] = useState(editThisReview.stars);
+    const [errors, setErrors] = useState([]);
 
-  const [review, setReview] = useState(reviewToEdit.review);
-  const [stars, setStars] = useState(reviewToEdit.stars);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    let payload = {
-      id: reviewId,
-      review,
-      stars,
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        let payload = {
+        id: reviewId,
+        review,
+        stars,
     };
+    try {
+        await dispatch(editAReview(payload));
+        history.push(`/user/reviews`)
+     } catch (res) {
+        setErrors([]);
+        const data = await res.json();
+     }
 
-    await dispatch(reviewEdit(payload));
-
-    history.push(`/user/reviews`);
   };
   const onClick = async (e) => {
     e.preventDefault();
-
-    await dispatch(reviewDelete(reviewId));
+    await dispatch(deleteAReview(reviewId));
     history.push(`/user/reviews`);
   };
 
   return (
     <div id="edit-spot-container">
-      {/* <div className="edit-spot-form"> */}
+
       <form className="edit-spot-form" onSubmit={handleSubmit}>
         <h2>Edit Review</h2>
         <label>
@@ -70,6 +74,5 @@ export default function EditSpotForm() {
         </button>
       </form>
     </div>
-    // </div>
   );
 }
