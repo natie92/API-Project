@@ -1,6 +1,13 @@
 .spot-container{
     width: 100%;
     text-align:left;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-left: 40px;
+    margin-right: 20px;
+    padding-bottom: 60px;
 }
 
 
@@ -9,7 +16,7 @@
     width: 500px;
     border-radius: 15px;
     cursor: pointer;
-    
+
 
 
 }
@@ -33,6 +40,7 @@
 
 .spot-detail-city-state{
     color: black;
+    padding-right: 10px;
     font-size: large;
     font-weight: bold;
     float: left;
@@ -50,6 +58,11 @@
     display: inline-block;
     margin: 0 auto;
     width: 100px;
+    justify-content: space-evenly;
+    padding-left: 200px;
+    white-space: nowrap;
+
+
 
 
 }

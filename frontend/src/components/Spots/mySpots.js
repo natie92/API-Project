@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { mySpots } from "../../store/spots";
 import { Link, NavLink, useHistory } from "react-router-dom";
 
+import "./mySpots.css"
+
 
 const MySpots = () => {
     const dispatch = useDispatch();
@@ -42,19 +44,20 @@ const MySpots = () => {
                 <img src={spot?.previewImage} alt="spot.name"></img>
                 <div className="rating">
                   <i class="fa-solid fa-star"></i>
-                {spot.avgRating}
+                  {Number(spot.avgRating).toFixed(1)}
               </div>
 
               <div>
-                <div className="delete-and-edit-container">
-                  <Link to={`/user/edit/${spot.id}`}>
-                    <button>Edit Spot</button>
-                  </Link>
-                </div>
+
                 <Link to={`/spots/${spot.id}`}>{spot.name}</Link>
               </div>
               <div>{spot?.address}</div>
               <div>${spot?.price}/night</div>
+               <div className="delete-and-edit-container">
+                  <Link to={`/user/edit/${spot.id}`}>
+                    <button>Edit Spot</button>
+                  </Link>
+                </div>
 
             </div>
             </NavLink>

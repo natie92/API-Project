@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { allReviews } from "../../store/reviews";
 import { useParams,useHistory } from "react-router-dom";
+import { deleteAReview } from "../../store/reviews";
 
 
 
@@ -25,19 +26,27 @@ export default function SpotReviews() {
 
   }, [dispatch]);
 
-   const createEditReviewRoute = () => {
-      let path = `/user/review/edit/${reviewId}`
-      history.push(path)
-    }
+  //  const createEditReviewRoute = () => {
+  //     let path = `/user/review/edit/${reviewId}`
+  //     history.push(path)
+  //   }
+
+     const onDelete = (e, id) => {
+      e.preventDefault();
+      dispatch(deleteAReview(id));
+      // history.push(`/user/reviews`)
+
+    };
+
 
   return (
     <div>
       <div id="spot-reviews-container">
-         <div className="edit-a-review">
+         {/* <div className="edit-a-review">
           <button className="edit-review-button" onClick={createEditReviewRoute}>
             Edit This Review
           </button>
-        </div>
+        </div> */}
         {spotReview.map((review) => (
           <div id="review-container" key={review?.id}>
             <div id="review" key={review?.id}>
@@ -55,6 +64,12 @@ export default function SpotReviews() {
               {review?.User?.firstName + " "}
               {review?.User?.lastName}
             </div>
+
+            <input type="submit" />
+            <button id="delete-btn" onClick={(e) => {onDelete(e,review.id)}}>
+              delete
+              </button>
+
           </div>
         ))}
       </div>

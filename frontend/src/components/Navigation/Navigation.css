@@ -27,6 +27,8 @@ li {
     margin-top: 0;
     height: 75px;
     width: 95px;
+    position: sticky;
+    top: 0;
 }
 
 .navbar {
@@ -36,6 +38,8 @@ li {
     margin-bottom: 10px;
     align-items: flex-end;
     width: 100%;
+    position: sticky;
+    top: 0;
 
 }
 

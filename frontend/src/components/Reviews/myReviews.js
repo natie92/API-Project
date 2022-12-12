@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, useParams } from "react-router-dom";
-import { MyReviews } from "../../store/reviews";
+import { MyReviews, deleteAReview } from "../../store/reviews";
 
 
 export default function GetMyReviews() {
@@ -48,6 +48,7 @@ export default function GetMyReviews() {
                   <button>Edit</button>
                 </Link>
               </div>
+
             </div>
           ))}
         </div>
