@@ -13,10 +13,10 @@ export default function EditReviewForm() {
         dispatch(MyReviews());
     }, [dispatch]);
 
-    const editThisReview = useSelector((state) => state.spots[reviewId]);
-    console.log(editThisReview)
+    const editThisReview = useSelector((state) => state.review[reviewId]);
 
-    const [review, setReview] = useState(editThisReview.review);
+
+    const [review, setReview] = useState(editThisReview.reviews);
     const [stars, setStars] = useState(editThisReview.stars);
     const [errors, setErrors] = useState([]);
 

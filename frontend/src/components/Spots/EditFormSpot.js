@@ -15,7 +15,7 @@ export default function UpdateASpot() {
     }, [dispatch]);
 
     const editThisSpot = useSelector((state) => state.spots[spotId]);
-    console.log(editThisSpot)
+
 
 
      const [address, setAddress] = useState(editThisSpot.address);

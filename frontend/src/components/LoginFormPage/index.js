@@ -33,10 +33,11 @@ function LoginFormPage() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleSubmit}>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
+      <div className='username-email'>
       <label>
         Username or Email
         <input
@@ -46,6 +47,8 @@ function LoginFormPage() {
           required
         />
       </label>
+      </div>
+      <div className='pass'>
       <label>
         Password
         <input
@@ -55,8 +58,10 @@ function LoginFormPage() {
           required
         />
       </label>
-      <button type="submit">Log In</button>
-      <button type="user-demo" onClick={onClick}>Demo User</button>
+      </div>
+
+      <button className="login-bttn" type="submit">Log In</button>
+      <button className='demo-user-bttn' type="user-demo" onClick={onClick}>Demo User</button>
     </form>
   );
 }

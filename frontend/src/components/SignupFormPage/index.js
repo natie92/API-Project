@@ -37,14 +37,6 @@ function SignupFormPage() {
       }
     })
 
-
-    //   const data = await res.json();
-    //   if (data && data.errors) {
-    //   setErrors(data.errors);
-    //  } else if (data && data.message) {
-    //   setErrors([data.message])
-    //  }
-    //   });
   }
     return setErrors(['Confirm Password field must be the same as the Password field']);
   };
@@ -56,7 +48,7 @@ function SignupFormPage() {
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         {/* {errors.email} */}
       </ul>
-      <label>
+      <label className="first">
         First Name
         <input
           type="text"
@@ -66,7 +58,7 @@ function SignupFormPage() {
         />
         {errors.username}
       </label>
-      <label>
+      <label className="last">
         Last Name
         <input
           type="text"
@@ -75,7 +67,7 @@ function SignupFormPage() {
           required
         />
       </label>
-      <label>
+      <label className="email">
         Email
         <input
           type="email"
@@ -84,7 +76,7 @@ function SignupFormPage() {
           required
         />
       </label>
-      <label>
+      <label className="user">
         Username
         <input
           type="text"
@@ -93,7 +85,7 @@ function SignupFormPage() {
           required
         />
       </label>
-      <label>
+      <label className="pass">
         Password
         <input
           type="password"
@@ -102,7 +94,7 @@ function SignupFormPage() {
           required
         />
       </label>
-      <label>
+      <label className="confirm-pass">
         Confirm Password
         <input
           type="password"
@@ -111,7 +103,7 @@ function SignupFormPage() {
           required
         />
       </label>
-      <button type="submit">Sign Up</button>
+      <button className="signup-submit-bttn" type="submit">Sign Up</button>
     </form>
     </div>
   );

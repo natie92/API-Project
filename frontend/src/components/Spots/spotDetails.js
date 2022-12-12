@@ -35,13 +35,8 @@ const SpotDetails = () => {
                         <h2>{spot?.name}</h2>
                     </div>
                     <Link to= {`${spotId}/reviews`} >
-                        <button className="spot-reviews">Reviews</button>
+                        <a className="spot-reviews">Spot Reviews</a>
                     </Link>
-                     <div className="add-a-new-spot">
-                        <button className="add-a-new-spot" onClick={createReviewRoute}>
-                            Add Review
-                        </button>
-                     </div>
                     <div className="average-rating">
                          <i className="fa-solid fa-star"></i>
                          {Number(spot?.avgRating).toFixed(1)}
@@ -65,6 +60,12 @@ const SpotDetails = () => {
              <Link to="/">
                 <button className="back">Return to Spots</button>
             </Link>
+
+             <div className="add-a-new-spot">
+                        <button className="add-a-new-spot" onClick={createReviewRoute}>
+                            Add Review
+                        </button>
+            </div>
         </div>
     )
 

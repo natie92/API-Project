@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { MyReviews } from "../../store/reviews";
 
 
 export default function GetMyReviews() {
+
   const dispatch = useDispatch();
+  const history = useHistory();
   useEffect(() => {
     const allReviews = async () => await dispatch(MyReviews());
     allReviews();
   }, [dispatch]);
 
 
-   const reviews = useSelector((state) => Object.values(state.reviews));
-
-console.log(reviews)
+  const reviews = useSelector((state) => Object.values(state.reviews));
 
   return (
 
@@ -22,6 +22,7 @@ console.log(reviews)
       <div className="my-reviews-header">
         <h1>My Reviews</h1>
       </div>
+
       <div className="my-reviews-container">
         <div className="myReviews" key="myreviews">
           {reviews.map((review) => (

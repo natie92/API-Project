@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 
 import "./frontpage.css";
 
+
 const FrontPageSpots = () => {
     const dispatch = useDispatch();
 

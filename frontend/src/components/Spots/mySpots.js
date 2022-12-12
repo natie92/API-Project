@@ -19,10 +19,6 @@ const MySpots = () => {
         history.push(path)
     };
 
-    const createReviewRoute = () => {
-      let path = `/reviews/${spots.id}`
-      history.push(path)
-    }
 
     return (
         <>
@@ -35,11 +31,6 @@ const MySpots = () => {
                 <div className="add-a-new-spot">
                     <button className="add-a-new-spot" onClick={newRoute}>
                         Add A New Spot
-                    </button>
-                </div>
-                 <div className="add-a-new-spot">
-                    <button className="add-a-new-spot" onClick={createReviewRoute}>
-                        Add Review
                     </button>
                 </div>
             </div>
