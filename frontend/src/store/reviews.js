@@ -33,15 +33,14 @@ const deleteReview = (review) => ({
 
 //GET ALL REVIEWS
 
-export const allReviews = (id) => async (dispatch) => {
-  const response = await csrfFetch(`/api/spots/${id}/reviews`);
-  const { Reviews } = await response.json();
+export const allReviews = (spotId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spotId}/reviews`);
+  const data = await response.json();
 
   if (response.ok) {
-    const obj = {};
-    Reviews.forEach((review) => (obj[review.id] = review));
-    dispatch(getReviews(obj));
+    dispatch(getReviews(data.Reviews, spotId))
   }
+  return response
 };
 
 //CREATE NEW REVIEW
@@ -110,23 +109,31 @@ export const deleteAReview = (id) => async (dispatch) => {
 const initialState = {};
 
 const reviewsReducer = (state = initialState, action) => {
-  let newState = { ...state };
   switch (action.type) {
-    case GET_REVIEW:
-      newState = { ...action.reviews };
+    case GET_REVIEW:{
+      const newState = {...state}
+      action.reviews.forEach(review => {
+        newState[review.id] = review
+      })
       return newState;
-    case ADD_REVIEW:
-      newState = { ...state, [action.newReview.id]: action.newReview };
+    }
+    case ADD_REVIEW:{
+      const newState = { ...state, [action.newReview.id]: action.newReview };
       return newState;
-    case MY_REVIEWS:
-      newState = { ...action.reviews };
+    }
+    case MY_REVIEWS:{
+      const newState = { ...action.reviews };
       return newState;
-    case EDIT_REVIEW:
-      newState = { ...state, [action.review.id]: action.review };
+    }
+    case EDIT_REVIEW:{
+      const newState = { ...state, [action.review.id]: action.review };
       return newState;
-    case DELETE_REVIEW:
-      delete newState[action.review.id];
+    }
+    case DELETE_REVIEW:{
+      const newState = {...state}
+      delete newState[action.review];
       return newState;
+    }
     default:
       return state;
   }

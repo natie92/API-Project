@@ -1,23 +1,27 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { allReviews } from "../../store/reviews";
+import { useParams } from "react-router-dom";
 
 
-export default function SpotReviews({ spotId }) {
+
+ export default function SpotReviews() {
+  const { spotId } = useParams();
+  const spot = useSelector(state => state.spots[spotId])
+  const reviews = useSelector(state => Object.values(state.reviews));
+  console.log(reviews)
+  console.log(spot)
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(allReviews(spotId));
 
-  }, [dispatch, spotId]);
+  }, [dispatch]);
 
 
-   const reviews = useSelector((state) => Object.values(state.reviews));
-
-  
 
   return (
     <div>
-      <h2>Reviews</h2>
       <div id="spot-reviews-container">
         {reviews.map((review) => (
           <div id="review-container" key={review?.id}>

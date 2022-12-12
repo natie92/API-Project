@@ -5,7 +5,7 @@ import { NavLink, Link } from "react-router-dom";
 // import placeHolder from  "./empty-house.png";
 
 
-import "./spot.css";
+import "./frontpage.css";
 
 const FrontPageSpots = () => {
     const dispatch = useDispatch();

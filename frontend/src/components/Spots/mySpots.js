@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { mySpots } from "../../store/spots";
 import { Link, NavLink, useHistory } from "react-router-dom";
 
-import "./spot.css";
 
 const MySpots = () => {
     const dispatch = useDispatch();
