@@ -11,9 +11,9 @@ const getSpots = (spots) => ({
   spots,
 });
 
-const addSpot = (newSpot) => ({
+const addSpot = (spot) => ({
     type: ADD,
-    newSpot,
+    spot,
 });
 
 const deleteSpot = (spot) => ({
@@ -51,9 +51,9 @@ export const MakeNewSpot = (spot) => async (dispatch) => {
     if(res.ok) {
         const newSpot = await res.json()
         dispatch(addSpot(newSpot));
-    } else {
-        throw res
+        return newSpot
     }
+    return res
 };
 
 export const mySpots = () => async (dispatch) => {
@@ -114,8 +114,11 @@ const spotReducer = (state = initialState, action) => {
             return newState;
         }
         case ADD:{
-            const newState = { ...state, [action.newSpot.id]: action.spot };
-            return newState
+            return { ...state, [action.spot.id]: action.spot}
+        //     console.log(action.newSpot)
+        //     const newState = { ...state, [action.newSpot.id]: action.newSpot };
+        //     return newState
+        // }
         }
         case USERSPOTS:{
             const newState = { ...action.spots };

@@ -12,6 +12,7 @@ import MySpots from './components/Spots/mySpots';
 import MakeFormForSpot from './components/Spots/CreateSpot';
 import UpdateASpot from './components/Spots/EditFormSpot';
 import MyReviews from "./components/Reviews/myReviews";
+import ReviewForm from './components/Reviews/reviewForm';
 
 
 
@@ -41,6 +42,9 @@ function App() {
       </Route>
       <Route exact path = "/spots/new">
         <MakeFormForSpot />
+      </Route>
+      <Route exact path="/reviews/:spotId">
+        <ReviewForm />
       </Route>
       <Route path="/spots/:spotId">
         <SpotDetails />

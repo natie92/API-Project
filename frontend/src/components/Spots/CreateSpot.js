@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MakeNewSpot } from "../../store/spots";
 
 const MakeFormForSpot = () => {
 
     const dispatch = useDispatch();
     const history = useHistory();
+    const user = useSelector(state => state.session.user)
 
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
@@ -17,12 +18,12 @@ const MakeFormForSpot = () => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
-    const [errors, setErrors] = useState("");
+    const [errors, setErrors] = useState([]);
 
-    const handleSumbit = async (e) => {
-        e.preventDefault();
-
+    const handleSumbit =  async(e) => {
+        e.preventDefault()
         let payload = {
+            ownerId: user.id,
             address,
             city,
             state,
@@ -34,22 +35,32 @@ const MakeFormForSpot = () => {
             price,
         }
 
-        try {
-            await dispatch(MakeNewSpot(payload))
-            history.push("/user/spots");
-        } catch (res) {
-            setErrors([]);
-            const data = await res.json()
 
-            if(data && data.message) setErrors(data.errors)
-        }
-    };
+        await dispatch(MakeNewSpot(payload))
+        .catch( async (res) => {
+          const data = await res.json();
+          const arr = [];
+
+          if(data && data.errors){
+            for(let error in data.errors) {
+              arr.push(data.errors[error])
+            }
+        setErrors([arr])
+      }
+
+    })
+    history.push("/user/spots")
+
+  };
 
     return (
         <div className="outer-container">
             <div className="make-a-new-spot-container">
                 <form className="spots-form" onSubmit={handleSumbit}>
                     <h2> Create A New Spot</h2>
+                    <ul>
+                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    </ul>
 
                     <label>
                         Address
@@ -57,7 +68,7 @@ const MakeFormForSpot = () => {
                         type="text"
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
-                        required
+                        // required
                         placeholder="Address"
                         />
                         <p className="errors">{errors.address}</p>
@@ -68,7 +79,7 @@ const MakeFormForSpot = () => {
                         type="text"
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
-                        required
+                        // required
                         placeholder="City"
                         />
                         <p className="errors">{errors.city}</p>
@@ -79,7 +90,7 @@ const MakeFormForSpot = () => {
               type="text"
               value={state}
               onChange={(e) => setState(e.target.value)}
-              required
+              // required
               placeholder="State"
             />
             <p className="errors">{errors.state}</p>
@@ -90,7 +101,7 @@ const MakeFormForSpot = () => {
               type="text"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
-              required
+              // required
               placeholder="Country"
             />
             <p className="errors">{errors.country}</p>
@@ -98,10 +109,10 @@ const MakeFormForSpot = () => {
           <label>
             lat
             <input
-              type="text"
+              type="number"
               value={lat}
               onChange={(e) => setLat(e.target.value)}
-              required
+              // required
               placeholder="Latitude"
             />
             <p className="errors">{errors.lat}</p>
@@ -109,10 +120,10 @@ const MakeFormForSpot = () => {
           <label>
             lng
             <input
-              type="text"
+              type="number"
               value={lng}
               onChange={(e) => setLng(e.target.value)}
-              required
+              // required
               placeholder="Longtitude"
             />
             <p className="errors">{errors.lng}</p>
@@ -123,7 +134,7 @@ const MakeFormForSpot = () => {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              required
+              // required
               placeholder="Name"
             />
             <p className="errors">{errors.name}</p>
@@ -134,7 +145,7 @@ const MakeFormForSpot = () => {
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              required
+              // required
               placeholder="Description Here"
             />
             <p className="errors">{errors.description}</p>
@@ -145,7 +156,7 @@ const MakeFormForSpot = () => {
               type="number"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-              required
+              // required
               placeholder="Price"
             />
             <p className="errors">{errors.price}</p>

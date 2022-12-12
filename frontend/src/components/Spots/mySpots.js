@@ -20,6 +20,11 @@ const MySpots = () => {
         history.push(path)
     };
 
+    const createReviewRoute = () => {
+      let path = `/reviews/${spots.id}`
+      history.push(path)
+    }
+
     return (
         <>
 
@@ -33,6 +38,11 @@ const MySpots = () => {
                         Add A New Spot
                     </button>
                 </div>
+                 <div className="add-a-new-spot">
+                    <button className="add-a-new-spot" onClick={createReviewRoute}>
+                        Add Review
+                    </button>
+                </div>
             </div>
 
             <div className="mySpots">
@@ -41,8 +51,8 @@ const MySpots = () => {
               <div className="spot" key={spot?.id}>
                 <img src={spot?.previewImage} alt="spot.name"></img>
                 <div className="rating">
-                  <i className="fa-regular fa-star"></i>
-                  {spot.avgRating}
+                  <i class="fa-solid fa-star"></i>
+                {spot.avgRating}
               </div>
 
               <div>

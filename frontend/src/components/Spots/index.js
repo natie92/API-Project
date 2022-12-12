@@ -19,39 +19,33 @@ const FrontPageSpots = () => {
     return (
        <div className='front-page-container'>
         {allAirBnbSpots.map((spot) => {
-            // if(spot.image === "Spot Image couldn't be found")
-            // spot.image = placeHolder;
+
 
         const date = new Date(spot.updatedAt);
         let presentDate = date.toDateString();
 
         return (
-        <NavLink to={`/spots/${spot.id}`} >
-         <div className="spot" key={spot.id}>
-                <img src={spot.previewImage} alt={spot.name}/>
-                <div className="info-on-spot">
-                    <div>
-                        <i className="fa-regular fa-star"></i>
-                        {Number(spot.avgRating).toFixed(1)}
+            <NavLink className="nav-link" to={`/spots/${spot.id}`} >
+                <div className="spot" key={spot.id}>
+                    <img className="spot-images" src={spot.previewImage} alt={spot.name}/>
+                    <div className="info-on-spot">
+                        <div className="rating-div">
+                            <i class="fa-solid fa-star"></i>
+                            {Number(spot.avgRating).toFixed(1)}
                         </div>
-                    <div className="country-and-city">
-                        {spot.city},{spot.country}
+                        <div className="city-state">{spot.city + "," + " " + spot.state}</div>
+                        <div className="spot-description">{spot.description}</div>
+                        <div className="updated-at">{presentDate}</div>
+                        <div className="price">${spot.price} night</div>
+
                     </div>
-                    <div>
-                        <Link to={`/spots/${spot.id}`}>{spot.name}</Link>
-                    </div>
-                    <div className="updated-at">{presentDate}</div>
-                    <div className="price">${spot.price}</div>
 
                 </div>
-
-         </div>
-         </NavLink>
+            </NavLink>
 
         )
 
         })}
-
        </div>
     )
 };
