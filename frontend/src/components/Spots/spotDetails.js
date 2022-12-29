@@ -65,7 +65,7 @@ const SpotDetails = () => {
                         <button className="add-a-new-spot" onClick={createReviewRoute}>
                             Add Review
                         </button>
-            </div>
+                     </div>
         </div>
     )
 

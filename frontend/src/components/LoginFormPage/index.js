@@ -16,14 +16,22 @@ function LoginFormPage() {
     <Redirect to="/" />
   );
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
-    return dispatch(sessionActions.login({ credential, password }))
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
-      });
+
+    await dispatch(sessionActions.login({ credential, password }))
+    .catch( async (res) => {
+          const data = await res.json();
+          const arr = [];
+
+          if(data && data.errors){
+            for(let error in data.errors) {
+              arr.push(data.errors[error])
+            }
+        setErrors(arr)
+      }
+    })
   }
 
   const onClick = (e) => {
@@ -46,6 +54,7 @@ function LoginFormPage() {
           onChange={(e) => setCredential(e.target.value)}
           required
         />
+        <p className="errors">{errors.credential}</p>
       </label>
       </div>
       <div className='pass'>
@@ -57,6 +66,7 @@ function LoginFormPage() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+        <p className="errors">{errors.password}</p>
       </label>
       </div>
 

@@ -11,22 +11,6 @@
 }
 
 
-.spot-details-img{
-    height: 500px;
-    width: 500px;
-    border-radius: 15px;
-    cursor: pointer;
-
-
-
-}
-
-.spot-details-img:hover {
-    box-shadow: 3px 6px rgba(190, 190, 190, 0.85);
-    text-decoration: none;
-
-}
-
 .spot-detail-price {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     text-decoration: none;
@@ -34,6 +18,11 @@
     font-size: medium;
     font-weight: bold;
     line-height: 19px;
+}
+
+.spot-details-img {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-decoration: none;
 
 }
 
@@ -55,15 +44,6 @@
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: medium;
     font-weight: 600;
-    display: inline-block;
-    margin: 0 auto;
-    width: 100px;
-    justify-content: space-evenly;
-    padding-left: 200px;
-    white-space: nowrap;
-
-
-
 
 }
 
@@ -118,6 +98,7 @@ div.average-rating{
     float: right;
     justify-content: space-around;
     align-items: flex-end;
+
 }
 
 div.name{
