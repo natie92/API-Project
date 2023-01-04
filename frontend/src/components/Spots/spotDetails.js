@@ -32,11 +32,15 @@ const SpotDetails = () => {
 
                 <div className="spot-details">
                     <div className="name">
-                        <h2>{spot?.name}</h2>
+                        <h1>{spot?.name}</h1>
                     </div>
+
+                <div className="spot-info">
+                    <div>
                     <Link to= {`${spotId}/reviews`} >
-                        <a className="spot-reviews">Spot Reviews</a>
+                        <div className="spot-reviews"> Spot Reviews </div>
                     </Link>
+                    </div>
                     <div className="average-rating">
                          <i className="fa-solid fa-star"></i>
                          {Number(spot?.avgRating).toFixed(1)}
@@ -44,28 +48,32 @@ const SpotDetails = () => {
                     <div className="spot-detail-city-state">
                         {spot?.city}, {spot?.state}
                    </div>
+                </div>
 
-                    <img className="spot-details-img" src={spot?.previewImage} alt={spot?.name}></img>
+                <img className="spot-details-img" src={spot?.previewImage} alt={spot?.name}></img>
 
-                   <div  className="spot-detail-price"> ${spot?.price} night </div>
-                   <div className="description">{spot?.description}</div>
+                <div  className="spot-detail-price"> ${spot?.price} night </div>
+                <div className="description">{spot?.description}</div>
 
-                   <div className="edit-spot-container">
-                        {currSessionUser && currSessionUser.id === spot?.ownerId && <UpdateSpot />}
+                <div className="edit-spot-container">
+                    {currSessionUser && currSessionUser.id === spot?.ownerId && <UpdateSpot />}
                 </div>
 
                 </div>
             </div>
+            <div className="bottom-buttons-container">
+                <Link to="/">
+                    <button className="back">Return to Spots</button>
+                </Link>
 
-             <Link to="/">
-                <button className="back">Return to Spots</button>
-            </Link>
+                <div className="add-a-new-review">
+                    <button className="add-a-new-review" onClick={createReviewRoute}>
+                    Add Review
+                    </button>
+                </div>
+            </div>
 
-             <div className="add-a-new-spot">
-                        <button className="add-a-new-spot" onClick={createReviewRoute}>
-                            Add Review
-                        </button>
-                     </div>
+
         </div>
     )
 

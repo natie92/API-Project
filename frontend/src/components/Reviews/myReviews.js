@@ -42,7 +42,7 @@ export default function GetMyReviews() {
                 Updated: {review?.updatedAt?.slice(0, 10)}
               </div>
 
-              <div>{review?.review}</div>
+              <div className="the-review">{review?.review}</div>
               <div className="edit-and-delete-container">
                 <Link to={`/user/review/edit/${review?.id}`}>
                   <button>Edit</button>

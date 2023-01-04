@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { NavLink, useHistory, useParams } from "react-router-dom";
 import { MyReviews, deleteAReview, editAReview} from "../../store/reviews";
 
 export default function EditReviewForm() {
-    const { reviewId } = useParams();
     const dispatch = useDispatch();
+    const { reviewId } = useParams();
     const history = useHistory();
 
 
@@ -13,10 +13,12 @@ export default function EditReviewForm() {
         dispatch(MyReviews());
     }, [dispatch]);
 
-    const editThisReview = useSelector((state) => state.review[reviewId]);
+    
+
+    const editThisReview = useSelector((state) => state.reviews[reviewId]);
 
 
-    const [review, setReview] = useState(editThisReview.reviews);
+    const [review, setReview] = useState(editThisReview.review);
     const [stars, setStars] = useState(editThisReview.stars);
     const [errors, setErrors] = useState([]);
 
@@ -27,17 +29,16 @@ export default function EditReviewForm() {
         review,
         stars,
     };
-    try {
+
         await dispatch(editAReview(payload));
+
         history.push(`/user/reviews`)
-     } catch (res) {
-        setErrors([]);
-        const data = await res.json();
-     }
+
 
   };
   const onClick = async (e) => {
     e.preventDefault();
+
     await dispatch(deleteAReview(reviewId));
     history.push(`/user/reviews`);
   };
@@ -67,11 +68,13 @@ export default function EditReviewForm() {
             min="1"
           />
         </label>
-
         <input type="submit" />
+
+        <NavLink to="/user/reviews">
         <button id="delete-btn" onClick={onClick}>
-          delete
+          Delete
         </button>
+        </NavLink>
       </form>
     </div>
   );

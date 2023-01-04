@@ -12,7 +12,7 @@ import MySpots from './components/Spots/mySpots';
 import MakeFormForSpot from './components/Spots/CreateSpot';
 import UpdateASpot from './components/Spots/EditFormSpot';
 import MyReviews from "./components/Reviews/myReviews";
-import EditSpotForm from './components/Reviews/EditReviewForm';
+import EditReviewForm from './components/Reviews/EditReviewForm';
 import ReviewForm from './components/Reviews/reviewForm';
 import SpotReviews from './components/Reviews/Reviews';
 import About from './components/About/about';
@@ -62,7 +62,7 @@ function App() {
         <MyReviews />
       </Route>
       <Route path="/user/review/edit/:reviewId">
-        <EditSpotForm />
+        <EditReviewForm />
       </Route>
       <Route exact path="/reviews/:spotId">
         <ReviewForm />

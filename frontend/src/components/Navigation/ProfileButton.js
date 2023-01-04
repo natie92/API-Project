@@ -41,12 +41,12 @@ function ProfileButton({ user }) {
 
   return (
     <>
-    <NavLink
-          exact to="/user/spots"
-          style={linkStyle}
-          activeClassName="Nav-Link-Working">
-          My Spots
-      </NavLink>
+    <div className="links-navigation">
+      <NavLink to="/user/reviews" style={linkStyle} activeClassName="Nav-Link-Working"> My Reviews </NavLink>
+      <NavLink exact to="/user/spots" style={linkStyle} activeClassName="Nav-Link-Working"> My Spots </NavLink>
+    </div>
+
+
       <button className="user-profile" onClick={openMenu}>
         <i className="fa-solid fa-bars" />
         <i className="fas fa-user-circle" />

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, NavLink} from "react-router-dom";
 import { mySpots, DeleteASpot } from "../../store/spots";
 import { UpdateSpot } from "../../store/spots";
 
@@ -18,15 +18,15 @@ export default function UpdateASpot() {
 
 
 
-     const [address, setAddress] = useState(editThisSpot.address);
-     const [city, setCity] = useState(editThisSpot.city);
-     const [state, setState] = useState(editThisSpot.state);
-     const [country, setCountry] = useState(editThisSpot.country);
-     const [lat, setLat] = useState(editThisSpot.lat);
-     const [lng, setLng] = useState(editThisSpot.lng);
-     const [name, setName] = useState(editThisSpot.name);
-     const [description, setDescription] = useState(editThisSpot.description);
-     const [price, setPrice] = useState(editThisSpot.price);
+     const [address, setAddress] = useState(editThisSpot?.address);
+     const [city, setCity] = useState(editThisSpot?.city);
+     const [state, setState] = useState(editThisSpot?.state);
+     const [country, setCountry] = useState(editThisSpot?.country);
+     const [lat, setLat] = useState(editThisSpot?.lat);
+     const [lng, setLng] = useState(editThisSpot?.lng);
+     const [name, setName] = useState(editThisSpot?.name);
+     const [description, setDescription] = useState(editThisSpot?.description);
+     const [price, setPrice] = useState(editThisSpot?.price);
      const [errors, setErrors] = useState([]);
 
     const handleSumbit = async (e) => {
@@ -156,9 +156,12 @@ export default function UpdateASpot() {
               <p className="errors">{errors.price}</p>
             </label>
             <input type="submit" />
+
+            <NavLink to="/users/spots">
             <button className="button-delete" onClick={onClick}>
               Delete
             </button>
+            </NavLink>
         </form>
         </div>
 

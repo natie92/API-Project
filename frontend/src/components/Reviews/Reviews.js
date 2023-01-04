@@ -5,6 +5,7 @@ import { useParams,useHistory } from "react-router-dom";
 import { deleteAReview } from "../../store/reviews";
 
 
+import "./SpotReviews.css";
 
 
 export default function SpotReviews() {
@@ -41,34 +42,33 @@ export default function SpotReviews() {
 
   return (
     <div>
-      <div id="spot-reviews-container">
+      <div className="spot-reviews-container">
          {/* <div className="edit-a-review">
           <button className="edit-review-button" onClick={createEditReviewRoute}>
             Edit This Review
-          </button>
-        </div> */}
+          </button> */}
+        {/* </div> */}
         {spotReview.map((review) => (
-          <div id="review-container" key={review?.id}>
-            <div id="review" key={review?.id}>
-              {review?.review}
-
-            </div>
-
-            <div id="review-date">{review?.createdAt?.slice(0, 10)}</div>
-            <div>
-              <i className="review-stars"> </i>
-              {review?.stars}
-
-            </div>
+          <div className="review-container" key={review?.id}>
             <div>
               {review?.User?.firstName + " "}
               {review?.User?.lastName}
             </div>
+            <div className="review-date">{review?.createdAt?.slice(0, 10)}</div>
+            <div className="review" key={review?.id}>
+              {review?.review}
 
-            <input type="submit" />
-            <button id="delete-btn" onClick={(e) => {onDelete(e,review.id)}}>
-              delete
+            </div>
+              <div className="review-stars">
+                <i class="fa-solid fa-star"></i>
+                {review?.stars}
+               </div>
+            {/* <div className="buttons">
+              <input type="submit" />
+              <button id="delete-btn" onClick={(e) => {onDelete(e,review.id)}}>
+                Delete
               </button>
+            </div> */}
 
           </div>
         ))}

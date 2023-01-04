@@ -1,0 +1,36 @@
+.spots-review-container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-left: 40px;
+    margin-right: 20px;
+    padding-bottom: 60px;
+    padding-top: 15px;
+    flex: 4;
+    text-decoration: none;
+}
+
+
+
+.review-container {
+    border: solid rgba(247, 125, 125, 0.892);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 3px 6px rgba(255, 219, 219, 0.618);
+    margin: 10px;
+    min-width: 150px;
+    max-width: 300px;
+    text-decoration: none;
+
+}
+
+.review{
+
+}
+
+.review-date{
+
+}
+
+
