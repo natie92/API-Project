@@ -90,9 +90,9 @@ router.get('/current',requireAuth, async (req, res) => {
     })
 
     if(userReviews.length === 0){
-        return res.status(404).json({
+        return res.status(200).json({
             message: " This user has no reviews",
-            statusCode: 404,
+            statusCode: 200,
         })
     }
 

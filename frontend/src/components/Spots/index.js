@@ -10,11 +10,14 @@ import "./frontpage.css";
 const FrontPageSpots = () => {
     const dispatch = useDispatch();
 
+
+    const allAirBnbSpots = useSelector((state) => Object.values(state.spots));
+
     useEffect(() => {
         dispatch(getAllSpots())
     }, [dispatch]);
 
-    const allAirBnbSpots = useSelector((state) => Object.values(state.spots));
+    const defaultImage = "https://t3.ftcdn.net/jpg/04/34/72/82/360_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg";
 
     return (
        <div className='front-page-container'>
@@ -27,10 +30,13 @@ const FrontPageSpots = () => {
         return (
             <NavLink className="nav-link" to={`/spots/${spot.id}`} >
                 <div className="spot" key={spot.id}>
-                    <img className="spot-images" src={spot.previewImage} alt={spot.name}/>
+                    <div className="spot-images">
+                        <i className="fa-regular fa-heart"></i>
+                        <img className="images" src={spot.previewImage || defaultImage } alt={spot.name}/>
+                    </div>
                     <div className="info-on-spot">
                         <div className="rating-div">
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                             {Number(spot.avgRating).toFixed(1)}
                         </div>
                         <div className="city-state">{spot.city + "," + " " + spot.state}</div>

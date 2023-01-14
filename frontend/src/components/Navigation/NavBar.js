@@ -1,23 +1,53 @@
+import React, { useState } from "react";
 import "./NavBar.css";
 
 
-const NavBar = () => {
-  return (
+export default function SearchBar() {
 
+  const [search, setSearch] = useState('');
 
-    <form>
-    <div className="nav-search-bar-container">
-      <div class="main-buttion">
-        <div class="anwhere">Anywhere</div>
-        <div class="anyweek">Any week</div>
-        <div class="addguests">Add guests</div>
-        <button class="search">
+  const handleChange = e => {
+    setSearch(e.target.value);
+  };
 
-        </button>
-      </div>
+  return(
+    <div>
+      <input
+      type="text"
+      placeholder="Search..."
+      value={search}
+      onChange={handleChange}
+      />
     </div>
-    </form>
   );
+
+
 };
 
-export default NavBar;
+
+
+
+
+
+
+
+// const NavBar = () => {
+//   return (
+
+
+//     <form>
+//     <div className="nav-search-bar-container">
+//       <div className="main-buttion">
+//         <div className="anwhere">Anywhere</div>
+//         <div className="anyweek">Any week</div>
+//         <div className="addguests">Add guests</div>
+//         <button className="search">
+
+//         </button>
+//       </div>
+//     </div>
+//     </form>
+//   );
+// };
+
+// export default NavBar;

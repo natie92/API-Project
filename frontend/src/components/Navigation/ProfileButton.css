@@ -1,4 +1,6 @@
 button.user-profile{
+    display: flex;
+    justify-content: center;
     all: unset;
     background: var(--white);
     border: 2px solid var(--gray);
@@ -8,10 +10,10 @@ button.user-profile{
     transition: 500ms all ease-in-out;
     height: 50px;
     overflow: hidden;
-    text-align: right;
+    text-align: center;
     padding-left: 10px;
-    width: 100px
-
+    width: 200px;
+    font-size: 30px;
 }
 
 

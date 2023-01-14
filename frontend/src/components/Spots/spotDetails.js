@@ -36,9 +36,9 @@ const SpotDetails = () => {
                     </div>
 
                 <div className="spot-info">
-                    <div>
-                    <Link to= {`${spotId}/reviews`} >
-                        <div className="spot-reviews"> Spot Reviews </div>
+                    <div className="spot-reviews">
+                    <Link to= {`${spotId}/reviews`} className="spot-reviews-btn" >
+                     Spot Reviews
                     </Link>
                     </div>
                     <div className="average-rating">

@@ -14,14 +14,15 @@
 
 
 .spot {
+    max-width: 500px;
+    height: 500px;
+    width: calc(500px - 20px);
+    padding: 10px;
     border: solid rgba(247, 125, 125, 0.892);
-    padding: 40px;
     border-radius: 20px;
     box-shadow: 3px 6px rgba(255, 219, 219, 0.618);
     cursor: pointer;
     margin: 10px;
-    min-width: 150px;
-    max-width: 300px;
     text-decoration: none;
 
 }
@@ -32,11 +33,18 @@
 }
 
 .spot-images{
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    margin: auto;
-    object-fit: cover;
+    position: relative;
+
+}
+
+.spot-images i {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+
 }
 
 .mySpots {
@@ -78,6 +86,8 @@
 
 
 .info-on-spot{
+    display: flex;
+    flex-direction: column;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color: black;
     text-decoration: none;
@@ -96,6 +106,7 @@
 }
 
 .updated-at {
+    display: flex;
     color: gray;
     font-size: 15px;
     padding-top: 10px;
@@ -104,6 +115,7 @@
 }
 
 .price {
+    display: flex;
     text-decoration: none;
     padding-top: 17px;
     font-size: medium;
@@ -114,19 +126,28 @@
 }
 
 i.fa-star {
+    display: flex;
     padding-top: 10px;
     font-size: 12px;
     padding-right: 2px;
+    margin-right: 5px;
+    height: 20px;
 
 }
 
 div.rating-div{
-    font-size: 15px;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 17px;
     float: right;
     line-height: 19px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
 div.city-state {
+    display: flex;
+    justify-content: flex-start;
     padding-top: 6px;
     color: black;
     font-size: 16px;
@@ -142,6 +163,12 @@ div.spot-description {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.nav-link {
+a.nav-link {
     text-decoration: none;
+}
+
+.images{
+    width: 400px;
+    height: 260px;
+    border-radius: 10px;
 }

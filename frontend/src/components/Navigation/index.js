@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
+import './NavBar.css';
 import logo from "./airpnp.png";
 
 function Navigation({ isLoaded }){
@@ -32,13 +33,20 @@ function Navigation({ isLoaded }){
           alt="airbnb logo"
         />
       </NavLink>
-    <ul>
-      <li>
-        <NavLink className="home-nav" exact to="/">Home</NavLink>
-        {isLoaded && sessionLinks}
-      </li>
-    </ul>
+      <div className='search-bar'>
+        <form>
+          <input type="text" placeholder="Search..."/>
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </form>
+      </div>
+      <ul>
+        <li>
+          <NavLink className="home-nav" exact to="/">Home</NavLink>
+          {isLoaded && sessionLinks}
+        </li>
+      </ul>
     </div>
+
   );
 }
 

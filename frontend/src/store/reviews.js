@@ -76,7 +76,7 @@ export const MyReviews = () => async (dispatch) => {
 
   if (response.ok) {
     const obj = {};
-    Reviews.forEach((review) => (obj[review.id] = review));
+    if (Reviews) Reviews.forEach((review) => (obj[review.id] = review))
 
     dispatch(myReviews(obj));
   }
