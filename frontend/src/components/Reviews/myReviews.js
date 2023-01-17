@@ -52,7 +52,7 @@ export default function GetMyReviews() {
               <div className="the-review">{review?.review}</div>
               <div className="edit-and-delete-container">
                 <Link to={`/user/review/edit/${review?.id}`}>
-                  <button>Edit</button>
+                  <button className="edit-delete-btn">Edit</button>
                 </Link>
               </div>
               </div>

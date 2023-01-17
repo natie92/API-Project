@@ -1,10 +1,48 @@
 # airbnb_proj_natalia_miller
 
-# `AIRBNB`
+# < API-AIRBNB_PROJECT >
 
-## Database Schema Design
+## Introduction
 
-[airbnb-dbdiagram]: ../assets/airbnb_dbdiagram.png
+Nat's API Project is an attempt to clone the Airbnb page. The page has some similar functionalities as Airbnb. There is a search bar (not functioning), a working log in, demo user, and signup pages. The front page includes all the Airbnb functionalities from spot reviews, to the pricing. Rest of the website needs further CSS development but for the most part everything is functioning!
+
+## List of Technologies
+
+| Frontend           | Backend                |
+| :----------------- | :--------------------- |
+| \*js-cookie        | \*bcryptjs             |
+| \*react            | \*cookie-parser        |
+| \*react-dom        | \*cors                 |
+| \*react-redux      | \*csurf                |
+| \*react-router-dom | \*dotenv               |
+| \*react-scripts    | \*express              |
+| \*redux            | \*express-async-errors |
+| \*redux-thunk      | \*express-validator    |
+|                    | \*helmet               |
+|                    | \*jsonwebtoken         |
+|                    | \*morgan               |
+|                    | \*mysql2               |
+|                    | \*per-env              |
+|                    | \*sequelize            |
+|                    | \*sequelize-cli        |
+
+# Screenshots
+
+## HomePage
+
+
+
+## Spot Detail Page with Spot Editing
+
+
+# Instructions on how to launch application locally
+
+1. Type 'npm install' in the root directory of the application.
+2. Then 'cd' into the front end directory and type 'npm start' to start the frontend server.
+3. Open a second terminal window and 'cd' into the backend directory, then type 'npm start' to start the backend server.
+
+## Schema of the database
+
 
 
 ## API Documentation

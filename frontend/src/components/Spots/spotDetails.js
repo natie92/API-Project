@@ -24,6 +24,8 @@ const SpotDetails = () => {
       history.push(path)
     }
 
+    const defaultImage = "https://t3.ftcdn.net/jpg/04/34/72/82/360_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg";
+
 
     return (
         <div>
@@ -50,7 +52,7 @@ const SpotDetails = () => {
                    </div>
                 </div>
 
-                <img className="spot-details-img" src={spot?.previewImage} alt={spot?.name}></img>
+                <img className="spot-details-img" src={spot?.previewImage || defaultImage} alt={spot?.name}></img>
 
                 <div  className="spot-detail-price"> ${spot?.price} night </div>
                 <div className="description">{spot?.description}</div>

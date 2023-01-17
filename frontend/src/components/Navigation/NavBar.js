@@ -13,6 +13,7 @@ export default function SearchBar() {
   return(
     <div>
       <input
+      className="search-bar"
       type="text"
       placeholder="Search..."
       value={search}

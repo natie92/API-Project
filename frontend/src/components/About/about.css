@@ -12,17 +12,91 @@
     align-items: center;
 }
 
-.name-container {
-    border: solid 1px lightgray;
-    border-radius: 10px;
-    box-shadow: 3px 6px rgba(245, 245, 245, 0.618);
-    padding: 15px;
-}
 
 .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 20px;
     margin-left: 10px;
-
     border-radius: 10px;
 }
 
+.photo-of-nat{
+    border-radius: 50% 50% 50% 50%;
+    width: 70%;
+    height: 70%;
+}
+
+.about-me{
+    display: flex;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgb(47, 47, 47);
+}
+
+.full-name{
+    display: flex;
+    color: rgb(47, 47, 47);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+
+}
+
+.title{
+    display: flex;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-decoration: underline;
+
+}
+
+p.about-me-info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    white-space: pre-wrap;
+    color: rgb(47, 47, 47);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.email-about{
+    display: flex;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: rgb(47, 47, 47);
+    font-weight: bold;
+}
+
+.my-links{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+a.github{
+    margin-right: 10px;
+    font-size: 20px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+
+a.github:visited{
+    color: black;
+}
+
+a.github:hover {
+    color: rgb(255, 37, 114);
+}
+
+a.linked-in{
+    margin: 10px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 20px;
+}
+
+a.linked-in:visited{
+    color: black;
+}
+
+a.linked-in:hover {
+    color: rgb(255, 37, 114);
+}

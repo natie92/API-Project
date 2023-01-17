@@ -44,6 +44,7 @@ function ProfileButton({ user }) {
     <div className="links-navigation">
       <NavLink to="/user/reviews" style={linkStyle} activeClassName="Nav-Link-Working"> My Reviews </NavLink>
       <NavLink exact to="/user/spots" style={linkStyle} activeClassName="Nav-Link-Working"> My Spots </NavLink>
+      {/* <NavLink exact to="/about" style={linkStyle} activeClassName="Nav-Link-Working"> About Me </NavLink> */}
     </div>
     <div className="dropdown">
       <button className="user-profile" onClick={openMenu}>

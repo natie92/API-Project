@@ -35,12 +35,13 @@ function Navigation({ isLoaded }){
       </NavLink>
       <div className='search-bar'>
         <form>
-          <input type="text" placeholder="Search..."/>
+          <input type="text" className="search" placeholder="Search..."/>
           <i class="fa-solid fa-magnifying-glass"></i>
         </form>
       </div>
       <ul>
         <li>
+          <NavLink exact to="/about" className="about-me-link"> About Me </NavLink>
           <NavLink className="home-nav" exact to="/">Home</NavLink>
           {isLoaded && sessionLinks}
         </li>

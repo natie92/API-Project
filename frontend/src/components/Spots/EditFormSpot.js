@@ -4,6 +4,8 @@ import { useParams, useHistory, NavLink} from "react-router-dom";
 import { mySpots, DeleteASpot } from "../../store/spots";
 import { UpdateSpot } from "../../store/spots";
 
+import "./EditFormSpot.css";
+
 export default function UpdateASpot() {
     const { spotId } = useParams();
     const dispatch = useDispatch();
@@ -66,7 +68,7 @@ export default function UpdateASpot() {
      <div className="edit-spot-container">
        <form className="edit-spot-form" onSubmit={handleSumbit}>
             <h2>Edit Spot</h2>
-            <label>
+            <label className="address-spot">
              Address
             <input
                 type="text"
@@ -76,7 +78,7 @@ export default function UpdateASpot() {
               />
              <p className="errors">{errors.address}</p>
             </label>
-            <label>
+            <label className="city-spot">
               City
               <input
                 type="text"
@@ -86,7 +88,7 @@ export default function UpdateASpot() {
               />
           <p className="errors">{errors.city}</p>
             </label>
-            <label>
+            <label className="state-spot">
               State
               <input
                 type="text"
@@ -96,7 +98,7 @@ export default function UpdateASpot() {
               />
               <p className="errors">{errors.state}</p>
             </label>
-            <label>
+            <label className="country-spot">
               Country
               <input
                 type="text"
@@ -106,8 +108,8 @@ export default function UpdateASpot() {
               />
               <p className="errors">{errors.country}</p>
             </label>
-            <label>
-              lat
+            <label className="lat-spot">
+              Lat
               <input
                 type="text"
                 value={lat}
@@ -116,8 +118,8 @@ export default function UpdateASpot() {
               />
               <p className="errors">{errors.lat}</p>
             </label>
-            <label>
-              lng
+            <label className="lng-spot">
+              Lng
               <input
                 type="text"
                 value={lng}
@@ -126,8 +128,8 @@ export default function UpdateASpot() {
               />
               <p className="errors">{errors.lng}</p>
             </label>
-            <label>
-          Name
+            <label className="name-spot">
+              Name
           <input
             type="text"
             value={name}
@@ -136,7 +138,7 @@ export default function UpdateASpot() {
           />
           <p className="errors">{errors.name}</p>
             </label>
-            <label>
+            <label className="description-spot">
               Description
               <textarea
                 value={description}
@@ -145,7 +147,7 @@ export default function UpdateASpot() {
               />
               <p className="errors">{errors.description}</p>
             </label>
-            <label>
+            <label className="price-spot">
               Price
               <input
                 type="number"
@@ -155,10 +157,10 @@ export default function UpdateASpot() {
               />
               <p className="errors">{errors.price}</p>
             </label>
-            <input type="submit" />
+            <input type="submit" className="edit-spot-submit"/>
 
             <NavLink to="/users/spots">
-            <button className="button-delete" onClick={onClick}>
+            <button className="spot-delete-btn" onClick={onClick}>
               Delete
             </button>
             </NavLink>

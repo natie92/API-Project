@@ -1,7 +1,138 @@
-.delete-and-edit-container{
+.mySpots {
+    width: 200%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-left: 40px;
+    margin-right: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
 
 }
 
-.rating{
-    
+.my-spot-img{
+    display: flex;
+    width: 400px;
+    height: 280px;
+    border-radius: 10px;
+}
+
+div.delete-and-edit-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+button.delete-and-edit-container{
+    appearance: none;
+    background-color: #FAFBFC;
+    border: 1px solid rgba(247, 125, 125, 0.892);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+    box-sizing: border-box;
+    color: #24292E;
+    cursor: pointer;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    list-style: none;
+    padding: 6px 16px;
+    transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+    word-wrap: break-word;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 30px;
+}
+
+button.delete-and-edit-container:hover {
+    background-color: #d4d4d7;
+    text-decoration: none;
+    transition-duration: 0.1s;
+}
+
+.my-spots-rating-container{
+    display: flex;
+    justify-content: flex-end;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.my-spots-rating-container:visited{
+    color: #24292E;
+}
+
+.my-spot-address-container{
+    display: flex;
+    color: grey;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 20px;
+}
+
+.my-spot-price-container{
+    display: flex;
+    color: #24292E;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+div.add-a-new-spot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button.add-a-new-spot{
+    appearance: none;
+    background-color: #FAFBFC;
+    border: 1px solid rgba(247, 125, 125, 0.892);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+    box-sizing: border-box;
+    color: #24292E;
+    cursor: pointer;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    list-style: none;
+    padding: 6px 16px;
+    transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+    word-wrap: break-word;
+    padding-left: 20px;
+    padding-right: 20px;
+
+}
+
+button.add-a-new-spot:hover {
+    background-color: #d4d4d7;
+    text-decoration: none;
+    transition-duration: 0.1s;
+}
+
+.my-spot-name-container{
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.my-spot-name{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 20px;
+}
+
+.my-spot-name:visited{
+    color: #24292E;
 }

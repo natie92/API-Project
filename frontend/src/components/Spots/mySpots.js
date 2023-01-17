@@ -29,40 +29,31 @@ const MySpots = () => {
         <>
 
         <div className="my-spots-container">
-            <div className="my-spots-header">
-                <h1>My Spots</h1>
-            </div>
-
             <div className="mySpots">
                 {spots.map((spot) => (
-              <NavLink to={`/spots/${spot.id}`} >
-              <div className="spot" key={spot?.id}>
-                <img src={spot?.previewImage || defaultImage} alt="spot.name"></img>
-                <div className="rating-container">
-                  <i class="fa-solid fa-star"></i>
-                  {Number(spot.avgRating).toFixed(1)}
-              </div>
-
-              <div className="my-spot-name-container">
-                <Link to={`/spots/${spot.id}`}>{spot.name}</Link>
-              </div>
-              <div className="my-spot-address-container">{spot?.address}</div>
-              <div className="my-spot-price-container">${spot?.price}/night</div>
-              <div className="add-a-new-spot">
-                <button className="add-a-new-spot" onClick={newRoute}>
-                    Add A New Spot
-                </button>
-              </div>
-               <div className="delete-and-edit-container">
-                  <Link to={`/user/edit/${spot.id}`}>
-                    <button>Edit Spot</button>
-                  </Link>
-                </div>
-
-                </div>
-            </NavLink>
-
-            ))}
+                <NavLink to={`/spots/${spot.id}`} >
+                    <div className="spot" key={spot?.id}>
+                        <img src={spot?.previewImage || defaultImage} alt="spot.name" className="my-spot-img"></img>
+                        <div className="my-spots-rating-container">
+                            <i class="fa-solid fa-star"></i>
+                            {Number(spot.avgRating).toFixed(1)}
+                        </div>
+                        <div className="my-spot-name-container">
+                            <Link to={`/spots/${spot.id}`} className="my-spot-name">{spot.name}</Link>
+                        </div>
+                        <div className="my-spot-address-container">{spot?.address}</div>
+                        <div className="my-spot-price-container">${spot?.price}/night</div>
+                        <div className="delete-and-edit-container">
+                            <Link to={`/user/edit/${spot.id}`}>
+                                <button className="delete-and-edit-container">Edit Spot</button>
+                            </Link>
+                        </div>
+                    </div>
+                </NavLink>
+                ))}
+            </div>
+            <div className="add-a-new-spot">
+                <button className="add-a-new-spot" onClick={newRoute}> Add A New Spot </button>
             </div>
         </div>
 
