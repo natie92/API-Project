@@ -22,8 +22,6 @@
     a.In the backend folder run npm start<br>
     b.In the frontend run folder npm start
 
-[API DOCUMENTATION](https://github.com/Micodlr/AirBnB/wiki/API-DOCUMENTATION)
-
 ## Introduction
 
 Nat's API Project is an attempt to clone the Airbnb page. The page has some similar functionalities as Airbnb. There is a search bar (not functioning), a working log in, demo user, and signup pages. The front page includes all the Airbnb functionalities from spot reviews, to the pricing. Rest of the website needs further CSS development but for the most part everything is functioning!
