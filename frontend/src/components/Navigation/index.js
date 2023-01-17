@@ -33,12 +33,12 @@ function Navigation({ isLoaded }){
           alt="airbnb logo"
         />
       </NavLink>
-      <div className='search-bar'>
+     {/* <div className='search-bar'>
         <form>
           <input type="text" className="search" placeholder="Search..."/>
           <i class="fa-solid fa-magnifying-glass"></i>
         </form>
-      </div>
+      </div> */}
       <ul>
         <li>
           <NavLink exact to="/about" className="about-me-link"> About Me </NavLink>

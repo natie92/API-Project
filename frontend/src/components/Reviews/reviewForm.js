@@ -69,7 +69,6 @@ return (
               min="1"
             />
           </label>
-
           <input type="submit" />
         </form>
       </div>
