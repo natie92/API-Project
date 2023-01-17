@@ -30,9 +30,16 @@ Nat's API Project is an attempt to clone the Airbnb page. The page has some simi
 
 ## HomePage
 
+<img width="1414" alt="Screen Shot 2023-01-15 at 7 41 52 PM" src="https://user-images.githubusercontent.com/83873748/212804827-6565ec2a-0a49-41ed-8ca8-84f9013718e2.png">
 
 
 ## Spot Detail Page with Spot Editing
+
+
+<img width="1062" alt="Screen Shot 2023-01-16 at 10 40 39 PM" src="https://user-images.githubusercontent.com/83873748/212804904-6263e8cf-ff40-4532-a2ff-10be867bdcf2.png">
+
+
+<img width="467" alt="Screen Shot 2023-01-16 at 10 44 28 PM" src="https://user-images.githubusercontent.com/83873748/212805323-595c4f78-e40b-4ea2-bb33-3713818ef64b.png">
 
 
 # Instructions on how to launch application locally
